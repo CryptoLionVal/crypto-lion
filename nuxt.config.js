@@ -28,7 +28,21 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ['@/assets/main.css'],
-  tailwindcss: {},
+  tailwindcss: {
+    config: {
+      theme: {
+        extend: {
+          colors: {
+            'theme-primary': '#010b18',
+            'theme-secondary': '#043970',
+          },
+          backgroundImage: {
+            'dot-pattern': "url(' /bg.png')",
+          },
+        },
+      },
+    },
+  },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [

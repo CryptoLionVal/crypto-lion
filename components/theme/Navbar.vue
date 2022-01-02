@@ -76,6 +76,12 @@
 
 <script>
 export default {
+  props: {
+    white: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       floating: false,
@@ -116,8 +122,10 @@ export default {
     },
   },
   mounted() {
+    this.floating = this.white
+
     document.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 10 || this.white) {
         this.floating = true
 
         return

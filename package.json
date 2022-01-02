@@ -12,19 +12,20 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@cosmjs/crypto": "^0.26.4",
-    "@cosmjs/launchpad": "^0.26.4",
-    "@cosmjs/proto-signing": "^0.26.4",
-    "@cosmjs/stargate": "^0.26.4",
+    "@cosmjs/crypto": "0.26.4",
+    "@cosmjs/launchpad": "0.26.4",
+    "@cosmjs/proto-signing": "0.26.4",
+    "@cosmjs/stargate": "0.26.4",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/robots": "^2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
-    "apexcharts": "^3.32.0",
+    "apexcharts": "^3.29.0",
     "big.js": "^6.1.1",
-    "core-js": "^3.20.0",
+    "core-js": "^3.19.1",
     "nuxt": "^2.15.8",
-    "nuxt-i18n": "^6.28.1",
+    "nuxt-i18n": "^6.22.2",
     "vue-apexcharts": "^1.6.2",
+    "vue-carousel": "^0.18.0",
     "vue-gtag": "^1.16.1"
   },
   "devDependencies": {
@@ -32,12 +33,12 @@
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.4.1",
+    "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-nuxt": "^3.1.0",
+    "eslint-plugin-nuxt": "^3.0.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
-    "prettier": "^2.5.1"
+    "prettier": "^2.4.1"
   }
 }
