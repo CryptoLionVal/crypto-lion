@@ -30,4 +30,3 @@ Big thanks going to these wonderful people:
 - [Illustrations by IRA Design](https://iradesign.io)
 - [Heroicons UI](https://github.com/sschoger/heroicons-ui)
 - [CosmJS](https://github.com/cosmos/cosmjs)
-
