@@ -1,13 +1,11 @@
-/* eslint-disable prettier/prettier */
 export default {
   title_template: `Crypto Lion Validator on CDC Chain Main-net | %s`,
-  meta_description:
-    `Crypto Lion is a blockchain validator running on Crypto.org Main-net Chain. You can make passive income by staking your CROs on it.`,
+  meta_description: `Crypto Lion is a blockchain validator running on Crypto.org Main-net Chain. You can make passive income by staking your CROs on it.`,
 
   pages: {
     home: {
       title: `Home`,
-      meta_description: `Crypto Lion is a Validator of Crypto.org Main-net to serve service of passive income for CRO holders.`
+      meta_description: `Crypto Lion is a Validator of Crypto.org Main-net to serve service of passive income for CRO holders.`,
     },
     terms: {
       title: `Terms & Conditions`,
@@ -100,8 +98,8 @@ export default {
           buttons: {
             defi: `Install Mobile DeFi Wallet App`,
             mnemonic: `Access Wallet with Mnemonic`,
-            desktop: `Download CDC Desktop Wallet`
-          }
+            desktop: `Download CDC Desktop Wallet`,
+          },
         },
         defi: {
           steps: [
@@ -131,7 +129,7 @@ export default {
               <path class="heroicon-ui" d="M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z"/>
             </svg>
           `,
-              next: true
+              next: true,
             },
             {
               title: `Import or Create Wallet`,
@@ -143,7 +141,7 @@ export default {
               <path class="heroicon-ui" d="M11.85 17.56a1.5 1.5 0 0 1-1.06.44H10v.5c0 .83-.67 1.5-1.5 1.5H8v.5c0 .83-.67 1.5-1.5 1.5H4a2 2 0 0 1-2-2v-2.59A2 2 0 0 1 2.59 16l5.56-5.56A7.03 7.03 0 0 1 15 2a7 7 0 1 1-1.44 13.85l-1.7 1.71zm1.12-3.95l.58.18a5 5 0 1 0-3.34-3.34l.18.58L4 17.4V20h2v-.5c0-.83.67-1.5 1.5-1.5H8v-.5c0-.83.67-1.5 1.5-1.5h1.09l2.38-2.39zM18 9a1 1 0 0 1-2 0 1 1 0 0 0-1-1 1 1 0 0 1 0-2 3 3 0 0 1 3 3z"/>
             </svg>
           `,
-              next: true
+              next: true,
             },
             {
               title: `Stake your Funds`,
@@ -156,9 +154,9 @@ export default {
                     d="M17.62 10H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8.5c-1.2 0-2.3-.72-2.74-1.79l-3.5-7-.03-.06A3 3 0 0 1 5 9h5V4c0-1.1.9-2 2-2h1.62l4 8zM16 11.24L12.38 4H12v7H5a1 1 0 0 0-.93 1.36l3.5 7.02a1 1 0 0 0 .93.62H16v-8.76zm2 .76v8h2v-8h-2z" />
             </svg>
           `,
-              next: false
-            }
-          ]
+              next: false,
+            },
+          ],
         },
         desktop: {
           steps: [
@@ -178,7 +176,7 @@ export default {
               <path class="heroicon-ui" d="M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z"/>
             </svg>
           `,
-              next: true
+              next: true,
             },
             {
               title: `Import or Create Wallet`,
@@ -190,7 +188,7 @@ export default {
               <path class="heroicon-ui" d="M11.85 17.56a1.5 1.5 0 0 1-1.06.44H10v.5c0 .83-.67 1.5-1.5 1.5H8v.5c0 .83-.67 1.5-1.5 1.5H4a2 2 0 0 1-2-2v-2.59A2 2 0 0 1 2.59 16l5.56-5.56A7.03 7.03 0 0 1 15 2a7 7 0 1 1-1.44 13.85l-1.7 1.71zm1.12-3.95l.58.18a5 5 0 1 0-3.34-3.34l.18.58L4 17.4V20h2v-.5c0-.83.67-1.5 1.5-1.5H8v-.5c0-.83.67-1.5 1.5-1.5h1.09l2.38-2.39zM18 9a1 1 0 0 1-2 0 1 1 0 0 0-1-1 1 1 0 0 1 0-2 3 3 0 0 1 3 3z"/>
             </svg>
           `,
-              next: true
+              next: true,
             },
             {
               title: `Stake your Funds`,
@@ -203,14 +201,14 @@ export default {
                     d="M17.62 10H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8.5c-1.2 0-2.3-.72-2.74-1.79l-3.5-7-.03-.06A3 3 0 0 1 5 9h5V4c0-1.1.9-2 2-2h1.62l4 8zM16 11.24L12.38 4H12v7H5a1 1 0 0 0-.93 1.36l3.5 7.02a1 1 0 0 0 .93.62H16v-8.76zm2 .76v8h2v-8h-2z" />
             </svg>
           `,
-              next: false
-            }
-          ]
+              next: false,
+            },
+          ],
         },
         mnemonic: {
           title: `Please enter your mnemonic phrase.`,
           desc: ``,
-          button: `Access Wallet`
+          button: `Access Wallet`,
         },
         wallet: {
           title: `My Wallet`,
@@ -223,7 +221,7 @@ export default {
           rewards_confirm: `All rewards will be withdrawn. Please confirm.`,
           stake_confirm: `The amount will be staked. Please confirm.`,
           desc: ``,
-          button: `Delegate`
+          button: `Delegate`,
         },
         final: {
           title: `Staked successfully!`,
@@ -235,55 +233,55 @@ export default {
           buttons: {
             telegram: `Crypto Lion Telegram Channel`,
             twitter: `Crypto Lion Twitter Page`,
-          }
+          },
         },
-      }
-    }
+      },
+    },
   },
 
   navbar: {
     logo: {
       link: {
-        title: `Crypto Lion CRO Validator`
-      }
+        title: `Crypto Lion CRO Validator`,
+      },
     },
     links: [
       {
         name: `Home`,
         title: `Crypto Lion Homepage`,
-        href: `/en/#validator-home`
+        href: `/en/#validator-home`,
       },
       {
         name: `How staking work?`,
         title: `Simple steps of CRO staking`,
-        href: `/en/#how-cro-staking-work`
+        href: `/en/#how-cro-staking-work`,
       },
       {
         name: `Staking Ways`,
         title: `How to stake CROs on Main-net, Explained`,
-        href: { path: 'how-to-stake-cro', hash: 'staking-steps' }
+        href: { path: 'how-to-stake-cro', hash: 'staking-steps' },
       },
       {
         name: `FAQs`,
         title: `Frequently Asked Questions About CDC Main-net`,
-        href: `/en/#f-a-qs`
-      }
+        href: `/en/#f-a-qs`,
+      },
     ],
     rate: {
       title: `Current rewards p.a. & validator commissions. Click to renew!`,
       fee: `fee`,
-    }
+    },
   },
 
   stake_now: {
     name: `Stake Now`,
-    title: `Stake your CROs to get your rewards!`
+    title: `Stake your CROs to get your rewards!`,
   },
 
   copier: {
     title: `Click to copy delegation address.`,
     message: `Copy Staking Address`,
-    done_message: `Copied!`
+    done_message: `Copied!`,
   },
 
   disclaimer: {
@@ -293,7 +291,7 @@ export default {
   statusButton: {
     name: `Main-net`,
     testNetName: `Croeseid Test-net`,
-    message: `: Missed { missed } blocks in last { gap } blocks.`
+    message: `: Missed { missed } blocks in last { gap } blocks.`,
   },
 
   dialog: {
@@ -312,7 +310,7 @@ export default {
     message: `Could we use cookies for analytics? To read details please visit our
         privacy policy page.`,
     accept_button: `Yes`,
-    deny_button: `No`
+    deny_button: `No`,
   },
 
   hero: {
@@ -322,7 +320,7 @@ export default {
     <span class="font-bold">5 billion</span> CRO has been allocated for
             distribution as rewards over the next
             <span class="font-bold">10 years</span>.
-    `
+    `,
   },
 
   sections: {
@@ -346,7 +344,7 @@ export default {
               href="https://blog.crypto.com/cro-mainnet-staking-rewards-set-at-20-apy/"
               >CRO Main-net Staking Rewards</a
             >
-          `
+          `,
         },
         second: {
           title: `Create a brand new Crypto.org Chain Wallet`,
@@ -363,7 +361,7 @@ export default {
                 href="https://github.com/crypto-com/chain-desktop-wallet/releases"
                 >Crypto.org Chain Desktop Wallet</a
               >
-          `
+          `,
         },
         third: {
           title: `Delegate your CROs on Crypto Lion Node`,
@@ -374,7 +372,7 @@ export default {
             address from right top of this website and paste in
             <span class="font-bold">Validator address</span>
             area. Review and accept.
-          `
+          `,
         },
         fourth: {
           title: `Enjoy with 20% APY!`,
@@ -391,9 +389,9 @@ export default {
                 href="https://crypto.org/explorer/validator/crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495"
                 >Crypto Lion Node on Crypto.org Chain</a
               >
-          `
-        }
-      }
+          `,
+        },
+      },
     },
     why_us: {
       title: `Why Crypto Lion Node?`,
@@ -401,34 +399,31 @@ export default {
         first: {
           title: `Powerful Infrastructure`,
           subtitle: `We are using latest firmware and software.`,
-          desc:
-            `We are using dedicated servers with industry standard high internet connection with latest version operating systems.`,
+          desc: `We are using dedicated servers with industry standard high internet connection with latest version operating systems.`,
           link: {
             name: `See Statistics`,
-            title: `See how the validator performs on blockchain`
-          }
+            title: `See how the validator performs on blockchain`,
+          },
         },
         second: {
           title: `Community Supported`,
           subtitle: `We are from big Crypto.com family.`,
-          desc:
-            `We are people from the turkish community of CDC. We care friendly medium and love to meet new crypto lovers.`,
+          desc: `We are people from the turkish community of CDC. We care friendly medium and love to meet new crypto lovers.`,
           link: {
             name: `Checkout Twitter`,
-            title: `Follow us on Twitter!`
-          }
+            title: `Follow us on Twitter!`,
+          },
         },
         third: {
           title: `Reliable`,
           subtitle: `We are also delegators of our node.`,
-          desc:
-            `We are also delegators of our node. Hundred thousands of CROs already staked on our validator.`,
+          desc: `We are also delegators of our node. Hundred thousands of CROs already staked on our validator.`,
           link: {
             name: `Our Delegators`,
-            title: `See wallets of people who chosen us`
-          }
-        }
-      }
+            title: `See wallets of people who chosen us`,
+          },
+        },
+      },
     },
     f_a_qs: {
       title: `FAQs`,
@@ -442,7 +437,7 @@ export default {
           signatures signed by their private key. Validators commit new blocks
           in the blockchain and receive revenue in exchange for their work.
           `,
-          separate: true
+          separate: true,
         },
         {
           title: `What is 'staking'?`,
@@ -452,7 +447,7 @@ export default {
           tokens (CROs) bonded as collateral. These CROs can be self-delegated
           directly by the validator or delegated to them by other CRO holders.
           `,
-          separate: true
+          separate: true,
         },
         {
           title: `What is a delegator?`,
@@ -461,14 +456,14 @@ export default {
           themselves. CRO holders can delegate CROs to a validator and obtain a
           part of their revenue in exchange.
           `,
-          separate: true
+          separate: true,
         },
         {
           title: `How can I stake?`,
           desc: `
           You can use our website, Defi App for mobiles, Crypto.com's Desktop wallet or using command line.
           `,
-          separate: true
+          separate: true,
         },
         {
           title: `How often can I claim my rewards?`,
@@ -476,21 +471,19 @@ export default {
           You can withdraw your CROs whatever often you want. There is no limit
           for this operation.
           `,
-          separate: true
+          separate: true,
         },
         {
-          title:
-            `Is there a cool-down time when I want to undelegate my funds?`,
+          title: `Is there a cool-down time when I want to undelegate my funds?`,
           desc: `
           Yes. You can undelegate whenever you want but there is 28 days
           cool-down time to be available your CROs back to your delegator
           wallet.
           `,
-          separate: false
+          separate: false,
         },
         {
-          title:
-            `Why should I trust you as a delegator? Can you access our coins?`,
+          title: `Why should I trust you as a delegator? Can you access our coins?`,
           desc: `
           Your wallet completely belongs to you and only you have access with your
           mnemonic secret words. You should keep them safe. We are Crossfire competition
@@ -499,21 +492,21 @@ export default {
           jailed for some reason. We are guarantee that we will announce any forecast
           about maintaining and upgrading jobs that reflects your staking.
           `,
-          separate: false
-        }
-      ]
+          separate: false,
+        },
+      ],
     },
     action: {
       title: `Start Enjoying the Benefits of Staking`,
-      subtitle: `Earn interest almost 20%!`
-    }
+      subtitle: `Earn interest almost 20%!`,
+    },
   },
 
   footer: {
     logo: {
       link: {
-        title: `Crypto Lion CRO Validator`
-      }
+        title: `Crypto Lion CRO Validator`,
+      },
     },
     groups: [
       {
@@ -523,7 +516,7 @@ export default {
             name: `Terms & Conditions`,
             title: `Terms & Conditions`,
             target: `_self`,
-            href: `terms-and-conditions`
+            href: `terms-and-conditions`,
           },
           {
             name: `Privacy Policy`,
@@ -535,10 +528,9 @@ export default {
             name: `Status`,
             title: `Status of both maın and test net servers`,
             target: `_blank`,
-            href:
-              `https://cryptolion.freshstatus.io/`
-          }
-        ]
+            href: `https://cryptolion.freshstatus.io/`,
+          },
+        ],
       },
       {
         name: `Social`,
@@ -547,21 +539,21 @@ export default {
             name: `Twitter`,
             target: `_blank`,
             title: `Crypto Lion Validator Twitter Address`,
-            href: `https://twitter.com/CryptoLionVal`
+            href: `https://twitter.com/CryptoLionVal`,
           },
           {
             name: `Telegram`,
             title: `Follow us from our Telegram channel`,
             target: `_blank`,
-            href: `https://t.me/CryptoLionValidator`
+            href: `https://t.me/CryptoLionValidator`,
           },
           {
             name: `Write Us`,
             title: `Email us what you are thinking`,
             target: `_self`,
-            href: `mailto:cryptolion-node@protonmail.com`
-          }
-        ]
+            href: `mailto:cryptolion-node@protonmail.com`,
+          },
+        ],
       },
       {
         name: `Official Resources`,
@@ -570,21 +562,21 @@ export default {
             name: `Crypto.org`,
             target: `_blank`,
             title: `Crypto.org Chain`,
-            href: `https://crypto.org/`
+            href: `https://crypto.org/`,
           },
           {
             name: `Crypto.org Chain Whitepaper`,
             title: `Crypto.org Chain Whitepaper PDF`,
             target: `_blank`,
-            href: `https://crypto.org/chain_whitepaper.pdf`
+            href: `https://crypto.org/chain_whitepaper.pdf`,
           },
           {
             name: `Crypto.org Chain Docs`,
             title: `Crypto.org Chain Documentation`,
             target: `_blank`,
-            href: `https://crypto.org/docs/`
-          }
-        ]
+            href: `https://crypto.org/docs/`,
+          },
+        ],
       },
       {
         name: `Explorers`,
@@ -593,25 +585,22 @@ export default {
             name: `on Main-net`,
             target: `_blank`,
             title: `Crypto.org Chain Main-net Explorer`,
-            href:
-              `https://crypto.org/explorer/validator/crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495`
+            href: `https://crypto.org/explorer/validator/crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495`,
           },
           {
             name: `on Mintscan by Cosmostation`,
             target: `_blank`,
             title: `Mintscan Main-net Explorer`,
-            href:
-              `https://www.mintscan.io/crypto-org/validators/crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495`
+            href: `https://www.mintscan.io/crypto-org/validators/crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495`,
           },
           {
             name: `on Testnet Croeseid 3`,
             target: `_blank`,
             title: `Crypto.org Croeseid 3 Testnet Explorer`,
-            href:
-              `https://crypto.org/explorer/croeseid3/validator/tcrocncl1j6cggamet73e2ymmvl58vwj6xv3pm89phczahv`
-          }
-        ]
-      }
+            href: `https://crypto.org/explorer/croeseid3/validator/tcrocncl1j6cggamet73e2ymmvl58vwj6xv3pm89phczahv`,
+          },
+        ],
+      },
     ],
     copyright: `
         All rights reserved. We are happy to share the source code on
@@ -623,6 +612,6 @@ export default {
           >GitHub</a
         >. Feel free to make a PR, fork and use it for your non-commercial
         purposes. May the world is a better place with our open ♥️.
-    `
-  }
-};
+    `,
+  },
+}

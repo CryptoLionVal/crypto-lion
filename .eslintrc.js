@@ -16,5 +16,6 @@ module.exports = {
   plugins: [],
   rules: {
     'vue/no-v-html': ['off'],
+    'vue/multi-word-component-names': ['off'],
   },
 }
