@@ -9,13 +9,11 @@ module.exports = {
     requireConfigFile: false,
   },
   extends: [
-    '@nuxtjs',
-    'prettier',
-    'plugin:prettier/recommended',
+    '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended',
+    'prettier',
   ],
-  plugins: ['prettier'],
-  // add your custom rules here
+  plugins: [],
   rules: {
     'vue/no-v-html': ['off'],
   },
