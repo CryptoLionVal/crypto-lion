@@ -5,7 +5,7 @@
     @click.prevent="logout"
   >
     <span class="text-xl">
-      {{ $t("pages.how_to_stake_cro.logout_button") }}
+      {{ $t('pages.how_to_stake_cro.logout_button') }}
     </span>
   </a>
 </template>
@@ -15,11 +15,14 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class Logout extends Vue {
-  get hasClient() : boolean {
+  $chain: any
+
+  get hasClient(): boolean {
     return this.$chain.client === null
   }
-  get logoutConfirm() : string {
-    return <string>this.$t('pages.how_to_stake_cro.logout_confirm')
+
+  get logoutConfirm(): string {
+    return this.$t('pages.how_to_stake_cro.logout_confirm') as string
   }
 
   logout() {
