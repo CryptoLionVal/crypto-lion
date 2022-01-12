@@ -1,4 +1,17 @@
-export default {
+type Network = {
+  [key: string]: {
+    RPC: string
+    LCD: string
+    T_VALIDATOR: string
+    VALIDATOR: string
+    HD_PATH: string
+    PREFIX: string
+    EXPLORER: string
+    EXPLORER_API: string
+  }
+}
+
+const networks: Network = {
   TESTNET: {
     RPC: 'https://testnet-croeseid-4.crypto.org:26657',
     LCD: 'https://testnet-croeseid-4.crypto.org:1317',
@@ -20,3 +33,5 @@ export default {
     EXPLORER_API: 'https://crypto.org/explorer/api/v1',
   },
 }
+
+export default networks
