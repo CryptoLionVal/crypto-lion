@@ -82,17 +82,18 @@
   </transition>
 </template>
 
-<script>
-export default {
-  methods: {
-    navigate() {
-      this.$store.commit('set', { name: 'step', value: 'desktop' })
-      this.$router.push(
-        this.localePath('how-to-stake-cro') +
-          '#' +
-          this.$t('pages.how_to_stake_cro.steps_id')
-      )
-    },
-  },
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class First extends Vue {
+  navigate() {
+    this.$store.commit('set', { name: 'step', value: 'desktop' })
+    this.$router.push(
+      this.localePath('how-to-stake-cro') +
+        '#' +
+        this.$t('pages.how_to_stake_cro.steps_id')
+    )
+  }
 }
 </script>
