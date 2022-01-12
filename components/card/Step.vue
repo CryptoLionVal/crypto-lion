@@ -18,21 +18,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    icon: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    desc: {
-      type: String,
-      default: '',
-    },
-  },
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component
+export default class Step extends Vue {
+  @Prop({ default: '' }) icon!: string
+  @Prop({ default: '' }) title!: string
+  @Prop({ default: '' }) description!: string
 }
 </script>
