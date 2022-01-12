@@ -23,41 +23,28 @@
     <p
       v-if="opened"
       class="text-gray-800 text-base px-6 mb-5"
-      v-html="desc"
+      v-html="description"
     ></p>
 
-    <div v-if="seperate" class="separator w-full gradient my-0 mx-6"></div>
+    <div v-if="separate" class="separator w-full gradient my-0 mx-6"></div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    seperate: {
-      type: Boolean,
-      default: false,
-    },
-    readable: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    desc: {
-      type: String,
-      default: '',
-    },
-  },
-  data() {
-    return {
-      opened: false,
-    }
-  },
-  mounted() {
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component
+export default class Logout extends Vue {
+  @Prop({ default: false }) separate!: boolean
+  @Prop({ default: false }) readable!: boolean
+  @Prop({ default: '' }) title!: string
+  @Prop({ default: '' }) description!: string
+
+  opened: boolean = false
+
+  mounted(): void {
     this.opened = this.readable
-  },
+  }
 }
 </script>
 
