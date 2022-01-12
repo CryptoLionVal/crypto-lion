@@ -15,35 +15,33 @@
         />
       </div>
       <div class="flex flex-col justify-center pb-4 px-2 md:px-12 my-12">
-        <cards-f-a-q
+        <card-f-a-q
           v-for="(question, i) in questions"
           :key="question.title"
           :title="question.title"
           :readable="i === 0"
-          :seperate="question.separate"
-          :desc="question.desc"
+          :separate="question.separate"
+          :description="question.desc"
         >
-        </cards-f-a-q>
+        </card-f-a-q>
       </div>
     </div>
   </section>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      search: '',
-    }
-  },
-  computed: {
-    questions() {
-      return this.$t('sections.f_a_qs.items').filter(
-        (question) =>
-          question.title.includes(this.search) ||
-          question.desc.includes(this.search)
-      )
-    },
-  },
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class FAQs extends Vue {
+  search: string = ''
+
+  get questions(): Array<object> {
+    return (this.$t('sections.f_a_qs.items') as unknown as Array<any>).filter(
+      (question) =>
+        question.title.includes(this.search) ||
+        question.desc.includes(this.search)
+    )
+  }
 }
 </script>
