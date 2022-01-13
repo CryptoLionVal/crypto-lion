@@ -15,7 +15,7 @@
         >
           <theme-logo />
         </NuxtLink>
-        <lazy-cards-rate />
+        <lazy-card-rate />
       </div>
       <div class="block lg:hidden pr-4">
         <button
@@ -74,54 +74,65 @@
   </nav>
 </template>
 
-<script>
-export default {
-  props: {
-    white: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class Navbar extends Vue {
+  @Prop({ default: false }) white!: boolean
+
+  // TODO: Must specify the exact type.
+  $chain: any
+
+  floating: boolean = false
+  hideMenu: boolean = true
+
+  get headerClasses(): object {
     return {
-      floating: false,
-      hideMenu: true,
+      'bg-white': this.floating,
+      shadow: this.floating,
     }
-  },
-  computed: {
-    headerClasses() {
-      return {
-        'bg-white': this.floating,
-        shadow: this.floating,
-      }
-    },
-    contentClasses() {
-      return {
-        'text-gray-100': !this.floating,
-        'text-black': this.floating,
-        'bg-gray-100': !this.floating,
-        'bg-white': this.floating,
-        gradient: !this.hideMenu && !this.floating,
-        hidden: this.hideMenu,
-      }
-    },
-    actionClasses() {
-      return {
-        'bg-white': !this.floating,
-        gradient: this.floating,
-        'text-gray-800': !this.floating,
-        'text-white': this.floating,
-      }
-    },
-    buttonText() {
-      return this.$store.state.balance === 0
-        ? this.$t('stake_now.name')
-        : this.$store.state.balance +
-            ' ' +
-            this.$chain.config('PREFIX').toUpperCase()
-    },
-  },
-  mounted() {
+  }
+
+  get contentClasses(): object {
+    return {
+      'text-gray-100': !this.floating,
+      'text-black': this.floating,
+      'bg-gray-100': !this.floating,
+      'bg-white': this.floating,
+      gradient: !this.hideMenu && !this.floating,
+      hidden: this.hideMenu,
+    }
+  }
+
+  get actionClasses(): object {
+    return {
+      'bg-white': !this.floating,
+      gradient: this.floating,
+      'text-gray-800': !this.floating,
+      'text-white': this.floating,
+    }
+  }
+
+  get buttonText(): string {
+    return this.$store.state.balance === 0
+      ? (this.$t('stake_now.name') as string)
+      : this.$store.state.balance +
+          ' ' +
+          this.$chain.config('PREFIX').toUpperCase()
+  }
+
+  navigate(): void {
+    if (this.$store.state.balance > 0) {
+      this.$store.commit('set', { name: 'step', value: 'wallet' })
+
+      return
+    }
+
+    this.$store.commit('set', { name: 'step', value: 'mnemonic' })
+  }
+
+  mounted(): void {
     this.floating = this.white
 
     document.addEventListener('scroll', () => {
@@ -133,17 +144,6 @@ export default {
 
       this.floating = false
     })
-  },
-  methods: {
-    navigate() {
-      if (this.$store.state.balance > 0) {
-        this.$store.commit('set', { name: 'step', value: 'wallet' })
-
-        return
-      }
-
-      this.$store.commit('set', { name: 'step', value: 'mnemonic' })
-    },
-  },
+  }
 }
 </script>
