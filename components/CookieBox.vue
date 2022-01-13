@@ -50,46 +50,45 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import { bootstrap } from 'vue-gtag'
 
-export default {
-  data() {
-    return {
-      isOpen: false,
+@Component
+export default class CookieBox extends Vue {
+  isOpen: boolean = false
+
+  getGDPR(): null | string {
+    if (process.browser && !!localStorage) {
+      return localStorage.getItem('GDPR:accepted')
     }
-  },
-  created() {
-    if (this.getGDPR() === null) {
-      this.isOpen = true
-    }
-  },
 
-  methods: {
-    getGDPR() {
-      if (process.browser && !!localStorage) {
-        return localStorage.getItem('GDPR:accepted')
-      }
+    return null
+  }
 
-      return undefined
-    },
-    accept() {
-      if (process.browser && !!localStorage) {
-        bootstrap().then(() => {
-          this.isOpen = false
-
-          localStorage.setItem('GDPR:accepted', true)
-        })
-      }
-    },
-    deny() {
-      if (process.browser && !!localStorage) {
+  accept() {
+    if (process.browser && !!localStorage) {
+      bootstrap().then(() => {
         this.isOpen = false
 
-        localStorage.setItem('GDPR:accepted', false)
-      }
-    },
-  },
+        localStorage.setItem('GDPR:accepted', 'true')
+      })
+    }
+  }
+
+  deny() {
+    if (process.browser && !!localStorage) {
+      this.isOpen = false
+
+      localStorage.setItem('GDPR:accepted', 'false')
+    }
+  }
+
+  created() {
+    if (this.getGDPR() === null || this.getGDPR() === 'false') {
+      this.isOpen = true
+    }
+  }
 }
 </script>
 
