@@ -49,45 +49,47 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      copied: false,
-      address: this.$chain.config('VALIDATOR'),
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class FAQs extends Vue {
+  // TODO: Must specify the exact type.
+  $chain: any
+
+  copied: boolean = false
+  address: string = this.$chain.config('VALIDATOR')
+
+
+  copy() : void {
+    const textArea : HTMLTextAreaElement = document.createElement('textarea')
+    textArea.style.position = 'fixed'
+    textArea.style.top = '0'
+    textArea.style.left = '0'
+    textArea.style.width = '2em'
+    textArea.style.height = '2em'
+    textArea.style.padding = '0'
+    textArea.style.border = 'none'
+    textArea.style.outline = 'none'
+    textArea.style.boxShadow = 'none'
+    textArea.style.background = 'transparent'
+    textArea.value = this.address
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+
+    try {
+      document.execCommand('copy')
+
+      this.copied = true
+
+      setTimeout(() => (this.copied = false), 1000)
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('Oops, unable to copy')
     }
-  },
-  methods: {
-    copy() {
-      const textArea = document.createElement('textarea')
-      textArea.style.position = 'fixed'
-      textArea.style.top = 0
-      textArea.style.left = 0
-      textArea.style.width = '2em'
-      textArea.style.height = '2em'
-      textArea.style.padding = 0
-      textArea.style.border = 'none'
-      textArea.style.outline = 'none'
-      textArea.style.boxShadow = 'none'
-      textArea.style.background = 'transparent'
-      textArea.value = this.address
-      document.body.appendChild(textArea)
-      textArea.focus()
-      textArea.select()
 
-      try {
-        document.execCommand('copy')
-
-        this.copied = true
-
-        setTimeout(() => (this.copied = false), 1000)
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log('Oops, unable to copy')
-      }
-
-      document.body.removeChild(textArea)
-    },
+    document.body.removeChild(textArea)
   },
 }
 </script>
