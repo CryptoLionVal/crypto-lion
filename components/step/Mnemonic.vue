@@ -77,83 +77,84 @@
   </transition>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      mnemonic: '',
-      loading: false,
+<script lang="ts">
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { SigningStargateClient } from '@cosmjs/stargate'
+
+@Component
+export default class Mnemonic extends Vue {
+  mnemonic: string = ''
+  loading: boolean = false
+
+  // TODO: Must specify the exact type.
+  $chain: any
+
+  get validMnemonic(): boolean {
+    return (
+      /^([a-z|\s]*)$/g.test(this.mnemonic) &&
+      (this.mnemonic.split(' ').length === 12 ||
+        this.mnemonic.split(' ').length === 24)
+    )
+  }
+
+  get pin(): string {
+    return this.$store.state.pin
+  }
+
+  get step(): string {
+    return this.$store.state.step
+  }
+
+  get client(): SigningStargateClient {
+    return this.$chain.client
+  }
+
+  @Watch('pin')
+  pinChanged(newValue: string): void {
+    if (newValue.length === 6 && this.client === null) {
+      this.decryptWallet()
     }
-  },
-  computed: {
-    validMnemonic() {
-      return (
-        /^([a-z|\s]*)$/g.test(this.mnemonic) &&
-        (this.mnemonic.split(' ').length === 12 ||
-          this.mnemonic.split(' ').length === 24)
-      )
-    },
-    pin() {
-      return this.$store.state.pin
-    },
-    step() {
-      return this.$store.state.step
-    },
-    client() {
-      return this.$chain.client
-    },
-  },
-  watch: {
-    pin(newValue) {
-      if (newValue.length === 6 && this.client === null) {
-        this.decryptWallet()
+  }
+
+  @Watch('step')
+  stepChanged(newValue: string): void {
+    if (newValue === 'mnemonic' && this.$store.state.encryptedWallet !== null) {
+      this.$store.commit('set', {
+        name: 'step',
+        value: 'wallet',
+      })
+    }
+  }
+
+  async askForPassword(): Promise<boolean> {
+    this.$store.dispatch('passwordDialog', this.$t('dialog.messages.password'))
+
+    return await this.$store.dispatch('savePass')
+  }
+
+  async decryptWallet(): Promise<void> {
+    this.loading = true
+
+    if (this.pin.length === 0 && (await this.askForPassword())) {
+      try {
+        await this.$store.dispatch('init', this.mnemonic)
+
+        this.mnemonic = ''
+
+        this.$store.commit('set', { name: 'step', value: 'wallet' })
+      } catch (error: any) {
+        this.$store.dispatch('warningDialog', error.message)
+
+        this.mnemonic = ''
+        this.$store.dispatch('resetStore')
+
+        sessionStorage.removeItem('lion_encrypted_wallet')
+        sessionStorage.removeItem('lion_encrypted_pin')
+        sessionStorage.removeItem('lion_account_address')
       }
-    },
-    step(newValue) {
-      if (
-        newValue === 'mnemonic' &&
-        this.$store.state.encryptedWallet !== null
-      ) {
-        this.$store.commit('set', {
-          name: 'step',
-          value: 'wallet',
-        })
-      }
-    },
-  },
-  methods: {
-    async askForPassword() {
-      this.$store.dispatch(
-        'passwordDialog',
-        this.$t('dialog.messages.password')
-      )
+    }
 
-      return await this.$store.dispatch('savePass')
-    },
-    async decryptWallet() {
-      this.loading = true
-
-      if (this.pin.length === 0 && (await this.askForPassword())) {
-        try {
-          await this.$store.dispatch('init', this.mnemonic)
-
-          this.mnemonic = ''
-
-          this.$store.commit('set', { name: 'step', value: 'wallet' })
-        } catch (error) {
-          this.$store.dispatch('warningDialog', error.message)
-
-          this.mnemonic = ''
-          this.$store.dispatch('resetStore')
-
-          sessionStorage.removeItem('lion_encrypted_wallet')
-          sessionStorage.removeItem('lion_encrypted_pin')
-          sessionStorage.removeItem('lion_account_address')
-        }
-      }
-
-      this.loading = false
-    },
-  },
+    this.loading = false
+  }
 }
 </script>
