@@ -220,60 +220,151 @@
 
       <disclaimer />
 
-      <buttons-logout />
+      <button-logout />
     </div>
   </transition>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      amount: 0,
-      loading: false,
-      reloadingBalance: false,
-      withdrawingRewards: false,
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class Wallet extends Vue {
+  // TODO: Must specify the exact type.
+  $chain: any
+
+  amount: number = 0
+  loading: boolean = false
+  reloadingBalance: boolean = false
+  withdrawingRewards: boolean = false
+
+  get validAmount(): boolean {
+    return (
+      /^([0-9]*(\.[0-9]{1,2})?)$/.test(this.amount + '') &&
+      this.amount > 0 &&
+      this.amount <= parseFloat(this.$store.state.balance) &&
+      !this.loading
+    )
+  }
+
+  get staked(): string {
+    return (
+      this.$store.state.staked +
+      ' ' +
+      this.$chain.config('PREFIX').toUpperCase()
+    )
+  }
+
+  get balance(): string {
+    return (
+      this.$store.state.balance +
+      ' ' +
+      this.$chain.config('PREFIX').toUpperCase()
+    )
+  }
+
+  get rewards(): string {
+    return (
+      this.$store.state.rewards +
+      ' ' +
+      this.$chain.config('PREFIX').toUpperCase()
+    )
+  }
+
+  get explorerLink(): string {
+    return (
+      this.$chain.config('EXPLORER') + '/account/' + this.$chain.account.address
+    )
+  }
+
+  async stake(): Promise<void> {
+    if (this.loading) return
+
+    this.loading = true
+
+    this.$store.dispatch('confirmDialog', this.$t('dialog.messages.unlock'))
+
+    const confirmed = await this.$store.dispatch('confirmPass')
+    if (!confirmed) {
+      this.$store.dispatch('warningDialog', this.$t('dialog.messages.wrong'))
+
+      this.loading = false
+      return
     }
-  },
-  computed: {
-    validAmount() {
-      return (
-        /^([0-9]*(\.[0-9]{1,2})?)$/.test(this.amount) &&
-        this.amount > 0 &&
-        this.amount <= parseFloat(this.$store.state.balance) &&
-        !this.loading
-      )
-    },
-    staked() {
-      return (
-        this.$store.state.staked +
-        ' ' +
-        this.$chain.config('PREFIX').toUpperCase()
-      )
-    },
-    balance() {
-      return (
-        this.$store.state.balance +
-        ' ' +
-        this.$chain.config('PREFIX').toUpperCase()
-      )
-    },
-    rewards() {
-      return (
-        this.$store.state.rewards +
-        ' ' +
-        this.$chain.config('PREFIX').toUpperCase()
-      )
-    },
-    explorerLink() {
-      return (
-        this.$chain.config('EXPLORER') +
-        '/account/' +
-        this.$chain.account.address
-      )
-    },
-  },
-  mounted() {
+
+    try {
+      await this.$store.dispatch('stake', this.amount)
+
+      this.$store.commit('set', { name: 'step', value: 'final' })
+    } catch (error: any) {
+      this.$store.dispatch('warningDialog', error.message)
+    }
+
+    this.loading = false
+  }
+
+  async withdrawRewards(): Promise<void> {
+    if (this.withdrawingRewards) return
+
+    this.loading = true
+    this.withdrawingRewards = true
+
+    this.$store.dispatch('confirmDialog', this.$t('dialog.messages.unlock'))
+
+    const confirmed = await this.$store.dispatch('confirmPass')
+    if (!confirmed) {
+      this.$store.dispatch('warningDialog', this.$t('dialog.messages.wrong'))
+
+      this.loading = false
+      this.withdrawingRewards = false
+      return
+    }
+
+    try {
+      await this.$store.dispatch('withdraw')
+    } catch (error: any) {
+      this.$store.dispatch('warningDialog', error.message)
+    }
+
+    this.loading = false
+    this.withdrawingRewards = false
+  }
+
+  async reloadBalance(): Promise<void> {
+    if (this.reloadingBalance) return
+
+    this.loading = true
+    this.reloadingBalance = true
+
+    try {
+      await this.$store.dispatch('fetchBalances')
+    } catch (error: any) {
+      this.$store.dispatch('warningDialog', error.message)
+    }
+
+    this.loading = false
+    this.reloadingBalance = false
+  }
+
+  copy(): void {
+    const textArea: HTMLTextAreaElement = this.$refs
+      .address as HTMLTextAreaElement
+    textArea.focus()
+    textArea.select()
+
+    try {
+      document.execCommand('copy')
+
+      this.copied = true
+
+      setTimeout(() => (this.copied = false), 1000)
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('Oops, unable to copy')
+    }
+  }
+
+  mounted(): void {
     setInterval(async () => {
       if (
         !this.loading &&
@@ -285,90 +376,6 @@ export default {
         this.reloadingBalance = false
       }
     }, 10000)
-  },
-  methods: {
-    async stake() {
-      if (this.loading) return
-
-      this.loading = true
-
-      this.$store.dispatch('confirmDialog', this.$t('dialog.messages.unlock'))
-
-      const confirmed = await this.$store.dispatch('confirmPass')
-      if (!confirmed) {
-        this.$store.dispatch('warningDialog', this.$t('dialog.messages.wrong'))
-
-        this.loading = false
-        return
-      }
-
-      try {
-        await this.$store.dispatch('stake', this.amount)
-
-        this.$store.commit('set', { name: 'step', value: 'final' })
-      } catch (error) {
-        this.$store.dispatch('warningDialog', error.message)
-      }
-
-      this.loading = false
-    },
-    async withdrawRewards() {
-      if (this.withdrawingRewards) return
-
-      this.loading = true
-      this.withdrawingRewards = true
-
-      this.$store.dispatch('confirmDialog', this.$t('dialog.messages.unlock'))
-
-      const confirmed = await this.$store.dispatch('confirmPass')
-      if (!confirmed) {
-        this.$store.dispatch('warningDialog', this.$t('dialog.messages.wrong'))
-
-        this.loading = false
-        this.withdrawingRewards = false
-        return
-      }
-
-      try {
-        await this.$store.dispatch('withdraw')
-      } catch (error) {
-        this.$store.dispatch('warningDialog', error.message)
-      }
-
-      this.loading = false
-      this.withdrawingRewards = false
-    },
-    async reloadBalance() {
-      if (this.reloadingBalance) return
-
-      this.loading = true
-      this.reloadingBalance = true
-
-      try {
-        await this.$store.dispatch('fetchBalances')
-      } catch (error) {
-        this.$store.dispatch('warningDialog', error.message)
-      }
-
-      this.loading = false
-      this.reloadingBalance = false
-    },
-    copy() {
-      const textArea = this.$refs.address
-      textArea.focus()
-      textArea.select()
-
-      try {
-        document.execCommand('copy')
-
-        this.copied = true
-
-        setTimeout(() => (this.copied = false), 1000)
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log('Oops, unable to copy')
-      }
-    },
-  },
+  }
 }
 </script>
