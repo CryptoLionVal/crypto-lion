@@ -1,9 +1,7 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import { AxiosRequestConfig } from 'axios'
 import Big from 'big.js'
 import { Sha256 } from '@cosmjs/crypto'
-
-// TODO: Implement ts for state component calls
 
 export const state = () =>
   ({
@@ -14,9 +12,9 @@ export const state = () =>
     } as object,
     step: 'first' as string,
     pin: '' as string,
-    confirmed: null as null | void,
-    saved: null as null | void,
-    encryptedWallet: null,
+    confirmed: null as null | boolean | Function,
+    saved: null as null | boolean | Function,
+    encryptedWallet: null as null | string,
     balance: 0 as number,
     rewards: 0 as number,
     staked: 0 as number,
@@ -24,6 +22,20 @@ export const state = () =>
   } as { [key: string]: any })
 
 export type RootState = ReturnType<typeof state>
+
+export const getters: GetterTree<RootState, RootState> = {
+  dialogType: (state) => state.dialog.type,
+  dialogPin: (state) => state.pin,
+  dialogVisible: (state) => state.dialog.show,
+  dialogSaved: (state) => state.saved,
+  dialogConfirmed: (state) => state.confirmed,
+  step: (state) => state.step,
+  encryptedWallet: (state) => state.encryptedWallet,
+  balance: (state) => state.balance,
+  walletBalance: (state) => state.balance,
+  walletRewards: (state) => state.rewards,
+  walletStaked: (state) => state.staked,
+}
 
 export const mutations: MutationTree<RootState> = {
   set: (state: RootState, { name, value }): void => {
@@ -41,7 +53,7 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async init({ commit, state, dispatch }, mnemonic): Promise<void> {
+  async init({ commit, state, dispatch }, mnemonic: string): Promise<void> {
     // @ts-ignore
     const encryptedWallet = await this.$chain.init(mnemonic, state.pin)
 
@@ -177,6 +189,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const protectedPin = new Sha256(Uint8Array.from(pin as Iterable<number>))
 
     commit('set', { name: 'pin', value: protectedPin.digest().toString() })
+    commit('set', { name: 'saved', value: true })
     sessionStorage.setItem('lion_encrypted_pin', state.pin)
   },
 

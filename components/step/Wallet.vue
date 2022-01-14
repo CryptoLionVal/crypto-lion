@@ -166,7 +166,7 @@
             'bg-gray-300': loading,
           }"
           class="rounded-full flex flex-row h-16 justify-center w-full md:w-1/6 inline-block hover:bg-teal-400 p-4 md:mx-6 text-primary font-bold shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-          @click="stake"
+          @click="stakeNow"
         >
           <svg
             v-if="!loading || reloadingBalance || withdrawingRewards"
@@ -226,7 +226,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+
+const store = namespace('')
 
 @Component
 export default class Wallet extends Vue {
@@ -239,37 +241,58 @@ export default class Wallet extends Vue {
   reloadingBalance: boolean = false
   withdrawingRewards: boolean = false
 
+  @store.Getter
+  public walletStaked!: number
+
+  @store.Getter
+  public walletBalance!: number
+
+  @store.Getter
+  public walletRewards!: number
+
+  @store.Getter
+  public step!: string
+
+  @store.Mutation
+  public set!: (data: object) => void
+
+  @store.Action
+  public fetchBalances!: (data: void) => Promise<void>
+
+  @store.Action
+  public withdraw!: (data: void) => Promise<void>
+
+  @store.Action
+  public stake!: (data: number) => Promise<void>
+
+  @store.Action
+  public confirmPass!: (data: void) => Promise<void | Function>
+
+  @store.Action
+  public confirmDialog!: (data: string) => void
+
+  @store.Action
+  public warningDialog!: (data: string) => void
+
   get validAmount(): boolean {
     return (
       /^([0-9]*(\.[0-9]{1,2})?)$/.test(this.amount + '') &&
       this.amount > 0 &&
-      this.amount <= parseFloat(this.$store.state.balance) &&
+      this.amount <= parseFloat(this.walletBalance + '') &&
       !this.loading
     )
   }
 
   get staked(): string {
-    return (
-      this.$store.state.staked +
-      ' ' +
-      this.$chain.config('PREFIX').toUpperCase()
-    )
+    return this.walletStaked + ' ' + this.$chain.config('PREFIX').toUpperCase()
   }
 
   get balance(): string {
-    return (
-      this.$store.state.balance +
-      ' ' +
-      this.$chain.config('PREFIX').toUpperCase()
-    )
+    return this.walletBalance + ' ' + this.$chain.config('PREFIX').toUpperCase()
   }
 
   get rewards(): string {
-    return (
-      this.$store.state.rewards +
-      ' ' +
-      this.$chain.config('PREFIX').toUpperCase()
-    )
+    return this.walletRewards + ' ' + this.$chain.config('PREFIX').toUpperCase()
   }
 
   get explorerLink(): string {
@@ -278,27 +301,27 @@ export default class Wallet extends Vue {
     )
   }
 
-  async stake(): Promise<void> {
+  async stakeNow(): Promise<void> {
     if (this.loading) return
 
     this.loading = true
 
-    this.$store.dispatch('confirmDialog', this.$t('dialog.messages.unlock'))
+    this.confirmDialog(this.$t('dialog.messages.unlock') as string)
 
-    const confirmed = await this.$store.dispatch('confirmPass')
+    const confirmed = await this.confirmPass()
     if (!confirmed) {
-      this.$store.dispatch('warningDialog', this.$t('dialog.messages.wrong'))
+      this.warningDialog(this.$t('dialog.messages.wrong') as string)
 
       this.loading = false
       return
     }
 
     try {
-      await this.$store.dispatch('stake', this.amount)
+      await this.stake(this.amount)
 
-      this.$store.commit('set', { name: 'step', value: 'final' })
+      this.set({ name: 'step', value: 'final' })
     } catch (error: any) {
-      this.$store.dispatch('warningDialog', error.message)
+      this.warningDialog(error.message)
     }
 
     this.loading = false
@@ -310,11 +333,11 @@ export default class Wallet extends Vue {
     this.loading = true
     this.withdrawingRewards = true
 
-    this.$store.dispatch('confirmDialog', this.$t('dialog.messages.unlock'))
+    this.confirmDialog(this.$t('dialog.messages.unlock') as string)
 
-    const confirmed = await this.$store.dispatch('confirmPass')
+    const confirmed = await this.confirmPass()
     if (!confirmed) {
-      this.$store.dispatch('warningDialog', this.$t('dialog.messages.wrong'))
+      this.warningDialog(this.$t('dialog.messages.wrong') as string)
 
       this.loading = false
       this.withdrawingRewards = false
@@ -322,9 +345,9 @@ export default class Wallet extends Vue {
     }
 
     try {
-      await this.$store.dispatch('withdraw')
+      await this.withdraw()
     } catch (error: any) {
-      this.$store.dispatch('warningDialog', error.message)
+      this.warningDialog(error.message)
     }
 
     this.loading = false
@@ -338,9 +361,9 @@ export default class Wallet extends Vue {
     this.reloadingBalance = true
 
     try {
-      await this.$store.dispatch('fetchBalances')
+      await this.fetchBalances()
     } catch (error: any) {
-      this.$store.dispatch('warningDialog', error.message)
+      this.warningDialog(error.message)
     }
 
     this.loading = false
@@ -367,13 +390,9 @@ export default class Wallet extends Vue {
 
   mounted(): void {
     setInterval(async () => {
-      if (
-        !this.loading &&
-        !this.reloadingBalance &&
-        this.$store.state.step === 'wallet'
-      ) {
+      if (!this.loading && !this.reloadingBalance && this.step === 'wallet') {
         this.reloadingBalance = true
-        await this.$store.dispatch('fetchBalances')
+        await this.fetchBalances()
         this.reloadingBalance = false
       }
     }, 10000)

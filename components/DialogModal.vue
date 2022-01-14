@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="visible"
+      v-if="dialogVisible"
       class="fixed z-50 inset-0 overflow-y-auto"
       aria-labelledby="modal-title"
       role="dialog"
@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator'
 import { Sha256 } from '@cosmjs/crypto'
 
 interface Models {
@@ -117,6 +117,8 @@ const models: Models = {
   6: '',
 }
 
+const store = namespace('')
+
 @Component
 export default class DialogModal extends Vue {
   $refs!: {
@@ -128,13 +130,35 @@ export default class DialogModal extends Vue {
   pin: string = ''
   models: Models = { ...models }
 
-  get dialogType(): string {
-    return this.$store.state.dialog.type
-  }
+  @store.Getter
+  public dialogPin!: string
 
-  get visible(): boolean {
-    return this.$store.state.dialog.show
-  }
+  @store.Getter
+  public dialogType!: string
+
+  @store.Getter
+  public dialogVisible!: boolean
+
+  @store.Getter
+  public dialogSaved!: boolean
+
+  @store.Getter
+  public dialogConfirmed!: boolean
+
+  @store.Mutation
+  public hideDialog!: (data: void) => void
+
+  @store.Mutation
+  public set!: (data: object) => void
+
+  @store.Mutation
+  public dialog!: (data: object) => void
+
+  @store.Action
+  public savePin!: (data: string) => void
+
+  @store.Action
+  public resetDialog!: (data: void) => void
 
   get encryptedPin(): string {
     return new Sha256(Uint8Array.from(this.pin as Iterable<number>))
@@ -155,28 +179,27 @@ export default class DialogModal extends Vue {
     this.pin = Object.values(newValue).join('')
   }
 
-  @Watch('visible')
-  visibleChanged(newValue: object): void {
+  @Watch('dialogVisible')
+  dialogVisibleChanged(newValue: object): void {
     if (newValue && this.dialogType === 'password') {
-      setTimeout(() => this.$refs['1'][0].focus(), 600)
+      setTimeout(() => this.$refs[1][0].focus(), 600)
     }
   }
 
   hide(): void {
-    this.$store.commit('hideDialog')
+    this.hideDialog()
 
     if (this.dialogType === 'password') {
-      this.$store.dispatch('savePin', this.pin)
-      this.$store.state.saved(true)
+      this.savePin(this.pin)
     } else if (
       this.dialogType === 'confirm' &&
-      this.$store.state.pin === this.encryptedPin
+      this.dialogPin === this.encryptedPin
     ) {
-      this.$store.state.confirmed(true)
-    } else if (typeof this.$store.state.confirmed === 'function') {
-      this.$store.state.confirmed(false)
+      this.set({ name: 'confirmed', value: true })
+    } else if (typeof this.dialogConfirmed === 'function') {
+      this.set({ name: 'confirmed', value: false })
     } else {
-      this.$store.commit('set', { name: 'saved', value: null })
+      this.set({ name: 'saved', value: null })
     }
 
     this.reset()
@@ -221,7 +244,7 @@ export default class DialogModal extends Vue {
       this.first = this.pin
       this.current = 1
       this.models = { ...models }
-      this.$store.commit('dialog', {
+      this.dialog({
         name: 'message',
         value: this.$t('dialog.messages.confirm'),
       })
@@ -231,7 +254,7 @@ export default class DialogModal extends Vue {
   }
 
   reset(): void {
-    this.$store.dispatch('resetDialog')
+    this.resetDialog()
 
     this.current = 1
     this.first = ''

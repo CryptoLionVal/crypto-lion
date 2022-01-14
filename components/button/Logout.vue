@@ -11,12 +11,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+
+const store = namespace('')
 
 @Component
 export default class Logout extends Vue {
   // TODO: Must specify the exact type.
   $chain: any
+
+  @store.Action
+  public resetStore!: (data: void) => void
 
   get hasClient(): boolean {
     return this.$chain.client === null
@@ -29,7 +34,7 @@ export default class Logout extends Vue {
   logout() {
     if (!confirm(this.logoutConfirm)) return
 
-    this.$store.dispatch('resetStore')
+    this.resetStore()
 
     sessionStorage.removeItem('lion_encrypted_wallet')
     sessionStorage.removeItem('lion_encrypted_pin')

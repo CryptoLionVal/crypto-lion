@@ -83,12 +83,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+
+const store = namespace('')
 
 @Component
 export default class First extends Vue {
+  @store.Mutation
+  public set!: (data: object) => void
+
   navigate() {
-    this.$store.commit('set', { name: 'step', value: 'desktop' })
+    this.set({ name: 'step', value: 'desktop' })
     this.$router.push(
       this.localePath('how-to-stake-cro') +
         '#' +

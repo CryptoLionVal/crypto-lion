@@ -75,7 +75,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
+
+const store = namespace('')
 
 @Component
 export default class Navbar extends Vue {
@@ -86,6 +88,12 @@ export default class Navbar extends Vue {
 
   floating: boolean = false
   hideMenu: boolean = true
+
+  @store.Getter
+  public balance!: number
+
+  @store.Mutation
+  public set!: (data: object) => void
 
   get headerClasses(): object {
     return {
@@ -115,21 +123,19 @@ export default class Navbar extends Vue {
   }
 
   get buttonText(): string {
-    return this.$store.state.balance === 0
+    return this.balance === 0
       ? (this.$t('stake_now.name') as string)
-      : this.$store.state.balance +
-          ' ' +
-          this.$chain.config('PREFIX').toUpperCase()
+      : this.balance + ' ' + this.$chain.config('PREFIX').toUpperCase()
   }
 
   navigate(): void {
-    if (this.$store.state.balance > 0) {
-      this.$store.commit('set', { name: 'step', value: 'wallet' })
+    if (this.balance > 0) {
+      this.set({ name: 'step', value: 'wallet' })
 
       return
     }
 
-    this.$store.commit('set', { name: 'step', value: 'mnemonic' })
+    this.set({ name: 'step', value: 'mnemonic' })
   }
 
   mounted(): void {

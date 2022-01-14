@@ -78,8 +78,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator'
 import { SigningStargateClient } from '@cosmjs/stargate'
+
+const store = namespace('')
 
 @Component
 export default class Mnemonic extends Vue {
@@ -89,6 +91,33 @@ export default class Mnemonic extends Vue {
   // TODO: Must specify the exact type.
   $chain: any
 
+  @store.Getter
+  public dialogPin!: string
+
+  @store.Getter
+  public step!: string
+
+  @store.Getter
+  public encryptedWallet!: string
+
+  @store.Mutation
+  public set!: (data: object) => void
+
+  @store.Action
+  public passwordDialog!: (data: string) => void
+
+  @store.Action
+  public warningDialog!: (data: string) => void
+
+  @store.Action
+  public resetStore!: (data: void) => void
+
+  @store.Action
+  public init!: (data: string) => Promise<void>
+
+  @store.Action
+  public savePass!: (data: void) => Promise<void>
+
   get validMnemonic(): boolean {
     return (
       /^([a-z|\s]*)$/g.test(this.mnemonic) &&
@@ -97,20 +126,12 @@ export default class Mnemonic extends Vue {
     )
   }
 
-  get pin(): string {
-    return this.$store.state.pin
-  }
-
-  get step(): string {
-    return this.$store.state.step
-  }
-
   get client(): SigningStargateClient {
     return this.$chain.client
   }
 
-  @Watch('pin')
-  pinChanged(newValue: string): void {
+  @Watch('dialogPin')
+  dialogPinChanged(newValue: string): void {
     if (newValue.length === 6 && this.client === null) {
       this.decryptWallet()
     }
@@ -118,35 +139,35 @@ export default class Mnemonic extends Vue {
 
   @Watch('step')
   stepChanged(newValue: string): void {
-    if (newValue === 'mnemonic' && this.$store.state.encryptedWallet !== null) {
-      this.$store.commit('set', {
+    if (newValue === 'mnemonic' && this.encryptedWallet !== null) {
+      this.set({
         name: 'step',
         value: 'wallet',
       })
     }
   }
 
-  async askForPassword(): Promise<boolean> {
-    this.$store.dispatch('passwordDialog', this.$t('dialog.messages.password'))
+  async askForPassword(): Promise<void> {
+    this.passwordDialog(this.$t('dialog.messages.password') as string)
 
-    return await this.$store.dispatch('savePass')
+    return await this.savePass()
   }
 
   async decryptWallet(): Promise<void> {
     this.loading = true
 
-    if (this.pin.length === 0 && (await this.askForPassword())) {
+    if (this.dialogPin.length === 0 && (await this.askForPassword())) {
       try {
-        await this.$store.dispatch('init', this.mnemonic)
+        await this.init(this.mnemonic)
 
         this.mnemonic = ''
 
-        this.$store.commit('set', { name: 'step', value: 'wallet' })
+        this.set({ name: 'step', value: 'wallet' })
       } catch (error: any) {
-        this.$store.dispatch('warningDialog', error.message)
+        this.warningDialog(error.message)
 
         this.mnemonic = ''
-        this.$store.dispatch('resetStore')
+        this.resetStore()
 
         sessionStorage.removeItem('lion_encrypted_wallet')
         sessionStorage.removeItem('lion_encrypted_pin')
