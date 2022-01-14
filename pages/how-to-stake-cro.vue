@@ -17,8 +17,6 @@
     </div>
 
     <theme-divider />
-
-    <buttons-logout />
   </div>
 </template>
 

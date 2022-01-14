@@ -1,6 +1,8 @@
 import Big from 'big.js'
 import { Sha256 } from '@cosmjs/crypto'
 
+// TODO: Implement ts for state component calls
+
 export const state = () => ({
   dialog: {
     show: false,

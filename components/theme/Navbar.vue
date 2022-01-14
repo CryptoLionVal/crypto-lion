@@ -54,8 +54,8 @@
               @click.native="
                 $store.commit('set', { name: 'step', value: 'first' })
               "
-              >{{ link.name }}</NuxtLink
-            >
+              >{{ link.name }}
+            </NuxtLink>
           </li>
         </ul>
         <NuxtLink

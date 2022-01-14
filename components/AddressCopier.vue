@@ -60,9 +60,8 @@ export default class FAQs extends Vue {
   copied: boolean = false
   address: string = this.$chain.config('VALIDATOR')
 
-
-  copy() : void {
-    const textArea : HTMLTextAreaElement = document.createElement('textarea')
+  copy(): void {
+    const textArea: HTMLTextAreaElement = document.createElement('textarea')
     textArea.style.position = 'fixed'
     textArea.style.top = '0'
     textArea.style.left = '0'
@@ -90,7 +89,7 @@ export default class FAQs extends Vue {
     }
 
     document.body.removeChild(textArea)
-  },
+  }
 }
 </script>
 
@@ -100,14 +99,17 @@ export default class FAQs extends Vue {
   bottom: 10vh;
   right: -405px;
 }
+
 .container:hover {
   right: 0;
 }
+
 @media only screen and (max-width: 600px) {
   .container {
     width: 350px;
     right: -255px;
   }
+
   .address {
     margin-top: 0.5em;
     font-size: 0.5em;

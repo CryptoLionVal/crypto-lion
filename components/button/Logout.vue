@@ -15,6 +15,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class Logout extends Vue {
+  // TODO: Must specify the exact type.
   $chain: any
 
   get hasClient(): boolean {

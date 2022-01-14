@@ -9,7 +9,7 @@ module.exports = {
     'plugin:nuxt/recommended',
     'prettier',
   ],
-  plugins: ["@typescript-eslint"],
+  plugins: ['@typescript-eslint'],
   rules: {
     'vue/no-v-html': ['off'],
     'vue/multi-word-component-names': ['off'],

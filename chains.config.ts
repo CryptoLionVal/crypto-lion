@@ -1,4 +1,4 @@
-type Network = {
+type Chain = {
   [key: string]: {
     RPC: string
     LCD: string
@@ -11,7 +11,7 @@ type Network = {
   }
 }
 
-const networks: Network = {
+const CHAINS: Chain = {
   TESTNET: {
     RPC: 'https://testnet-croeseid-4.crypto.org:26657',
     LCD: 'https://testnet-croeseid-4.crypto.org:1317',
@@ -34,4 +34,4 @@ const networks: Network = {
   },
 }
 
-export default networks
+export default CHAINS

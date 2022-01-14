@@ -90,7 +90,7 @@
           </span>
         </a>
 
-        <buttons-logout />
+        <button-logout />
       </div>
     </div>
   </transition>

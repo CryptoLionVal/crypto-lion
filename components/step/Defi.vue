@@ -15,12 +15,12 @@
           <div
             class="flex flex-wrap md:flex-no-wrap space-y-2 md:space-y-0 md:space-x-5 content-between"
           >
-            <cards-step
+            <card-step
               v-for="step in $t('pages.how_to_stake_cro.steps.defi.steps')"
               :key="step.title"
               :title="step.title"
               :icon="step.icon"
-              :desc="step.desc"
+              :desc="step.description"
             />
           </div>
         </div>

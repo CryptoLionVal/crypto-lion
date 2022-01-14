@@ -234,6 +234,7 @@ export default class Wallet extends Vue {
   $chain: any
 
   amount: number = 0
+  copied: boolean = false
   loading: boolean = false
   reloadingBalance: boolean = false
   withdrawingRewards: boolean = false
