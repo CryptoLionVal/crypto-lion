@@ -105,7 +105,7 @@ import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import { Sha256 } from '@cosmjs/crypto'
 
 interface Models {
-  [key: number]: string
+  [key: string]: string
 }
 
 const models: Models = {
@@ -120,7 +120,7 @@ const models: Models = {
 @Component
 export default class DialogModal extends Vue {
   $refs!: {
-    [key: number]: HTMLInputElement
+    [key: number]: HTMLInputElement[]
   }
 
   current: number = 1
@@ -158,10 +158,7 @@ export default class DialogModal extends Vue {
   @Watch('visible')
   visibleChanged(newValue: object): void {
     if (newValue && this.dialogType === 'password') {
-      setTimeout(
-        () => (this.$refs['1'] as Array<HTMLInputElement>)[0].focus(),
-        600
-      )
+      setTimeout(() => this.$refs['1'][0].focus(), 600)
     }
   }
 
@@ -190,7 +187,7 @@ export default class DialogModal extends Vue {
       case 'Backspace':
         this.models[this.current] = ''
         if (this.current === 1) return
-        ;(this.$refs[--this.current] as HTMLInputElement)[0].focus()
+        this.$refs[--this.current][0].focus()
         break
       case '1':
       case '2':
@@ -213,7 +210,8 @@ export default class DialogModal extends Vue {
         return
     }
 
-    if (this.validPassword) this.$refs.unlock.focus()
+    if (this.validPassword)
+      ((this.$refs as any).unlock as HTMLButtonElement).focus()
 
     if (
       this.pin.length === 6 &&
