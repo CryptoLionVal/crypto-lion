@@ -89,7 +89,7 @@
                 @click.prevent="$store.commit('hideDialog')"
               >
                 <span class="text-xl">
-                  {{ $t('dialog.buttons.close') }}
+                  {{ $t('dialog.button.close') }}
                 </span>
               </a>
             </div>
@@ -100,10 +100,11 @@
   </transition>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import { Sha256 } from '@cosmjs/crypto'
 
-const models = {
+const models: object = {
   1: '',
   2: '',
   3: '',
@@ -112,121 +113,121 @@ const models = {
   6: '',
 }
 
-export default {
-  data() {
-    return {
-      current: 1,
-      first: '',
-      pin: '',
-      models: { ...models },
+@Component
+export default class DialogModal extends Vue {
+  current: number = 1
+  first: string = ''
+  pin: string = ''
+  models: object = { ...models }
+
+  get dialogType(): string {
+    return this.$store.state.dialog.type
+  }
+
+  get visible(): boolean {
+    return this.$store.state.dialog.show
+  }
+
+  get encryptedPin(): string {
+    return new Sha256(Uint8Array.from(this.pin as Iterable<number>))
+      .digest()
+      .toString()
+  }
+
+  get validPassword(): boolean {
+    return this.dialogType === 'password'
+      ? this.pin.length === 6 &&
+          this.first.length === 6 &&
+          this.pin === this.first
+      : this.pin.length === 6
+  }
+
+  @Watch('models', { deep: true })
+  modelsChanged(newValue: object): void {
+    this.pin = Object.values(newValue).join('')
+  }
+
+  @Watch('visible')
+  visibleChanged(newValue: object): void {
+    if (newValue && this.dialogType === 'password') {
+      setTimeout(() => this.$refs['1'][0].focus(), 600)
     }
-  },
-  computed: {
-    dialogType() {
-      return this.$store.state.dialog.type
-    },
-    visible() {
-      return this.$store.state.dialog.show
-    },
-    encryptedPin() {
-      return new Sha256(this.pin).digest().toString()
-    },
-    validPassword() {
-      return this.dialogType === 'password'
-        ? this.pin.length === 6 &&
-            this.first.length === 6 &&
-            this.pin === this.first
-        : this.pin.length === 6
-    },
-  },
-  watch: {
-    models: {
-      handler(newValue) {
-        this.pin = Object.values(newValue).join('')
-      },
-      deep: true,
-    },
-    visible(newValue) {
-      if (newValue && this.dialogType === 'password') {
-        setTimeout(() => this.$refs['1'][0].focus(), 600)
-      }
-    },
-  },
-  methods: {
-    hide() {
-      this.$store.commit('hideDialog')
+  }
 
-      if (this.dialogType === 'password') {
-        this.$store.dispatch('savePin', this.pin)
-        this.$store.state.saved(true)
-      } else if (
-        this.dialogType === 'confirm' &&
-        this.$store.state.pin === this.encryptedPin
-      ) {
-        this.$store.state.confirmed(true)
-      } else if (typeof this.$store.state.confirmed === 'function') {
-        this.$store.state.confirmed(false)
-      } else {
-        this.$store.commit('set', { name: 'saved', value: null })
-      }
+  hide(): void {
+    this.$store.commit('hideDialog')
 
-      this.reset()
-    },
-    handleInput(e) {
-      switch (e.key) {
-        case 'Backspace':
-          this.models[this.current] = ''
-          if (this.current === 1) return
-          this.$refs[--this.current][0].focus()
-          break
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-        case '0':
-          if (this.models[this.current] === '')
-            this.models[this.current] = e.key
+    if (this.dialogType === 'password') {
+      this.$store.dispatch('savePin', this.pin)
+      this.$store.state.saved(true)
+    } else if (
+      this.dialogType === 'confirm' &&
+      this.$store.state.pin === this.encryptedPin
+    ) {
+      this.$store.state.confirmed(true)
+    } else if (typeof this.$store.state.confirmed === 'function') {
+      this.$store.state.confirmed(false)
+    } else {
+      this.$store.commit('set', { name: 'saved', value: null })
+    }
 
-          if (this.current === 6) break
+    this.reset()
+  }
 
-          this.$refs[++this.current][0].focus()
-          break
-        default:
-          this.models[this.current] = ''
-          return
-      }
+  handleInput(e: object): void {
+    switch (e.key) {
+      case 'Backspace':
+        this.models[this.current] = ''
+        if (this.current === 1) return
+        this.$refs[--this.current][0].focus()
+        break
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '0':
+        if (this.models[this.current] === '') this.models[this.current] = e.key
 
-      if (this.validPassword) this.$refs.unlock.focus()
+        if (this.current === 6) break
 
-      if (
-        this.pin.length === 6 &&
-        this.first.length === 0 &&
-        this.dialogType === 'password'
-      ) {
-        this.first = this.pin
-        this.current = 1
-        this.models = { ...models }
-        this.$store.commit('dialog', {
-          name: 'message',
-          value: this.$t('dialog.messages.confirm'),
-        })
+        this.$refs[++this.current][0].focus()
+        break
+      default:
+        this.models[this.current] = ''
+        return
+    }
 
-        this.$refs[1][0].focus()
-      }
-    },
-    reset() {
-      this.$store.dispatch('resetDialog')
+    if (this.validPassword) this.$refs.unlock.focus()
 
+    if (
+      this.pin.length === 6 &&
+      this.first.length === 0 &&
+      this.dialogType === 'password'
+    ) {
+      this.first = this.pin
       this.current = 1
-      this.first = ''
-      this.pin = ''
       this.models = { ...models }
-    },
-  },
+      this.$store.commit('dialog', {
+        name: 'message',
+        value: this.$t('dialog.messages.confirm'),
+      })
+
+      this.$refs[1][0].focus()
+    }
+  }
+
+  reset(): void {
+    this.$store.dispatch('resetDialog')
+
+    this.current = 1
+    this.first = ''
+    this.pin = ''
+    this.models = { ...models }
+  }
 }
 </script>
