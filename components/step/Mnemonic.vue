@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="$store.state.step === 'mnemonic'"
+      v-if="step === 'mnemonic'"
       class="container px-8 mx-auto flex flex-wrap flex-col md:flex-row items-center"
     >
       <div

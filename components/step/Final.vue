@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="$store.state.step === 'final'"
+      v-if="step === 'final'"
       class="container px-8 flex flex-col w-full flex-wrap justify-start items-start text-left"
     >
       <h1 class="my-10 text-5xl w-full font-bold text-green-700 leading-tight">
@@ -69,9 +69,7 @@
       <div class="flex w-full justify-start">
         <a
           class="rounded-full flex flex-row content-center cursor-pointer justify-center w-full md:w-1/5 p-1 mt-6 bg-white mr-2 mb-32 text-gray-800 font-bold shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-200 ease-in-out"
-          @click.prevent="
-            $store.commit('set', { name: 'step', value: 'wallet' })
-          "
+          @click.prevent="set({ name: 'step', value: 'wallet' })"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -95,3 +93,18 @@
     </div>
   </transition>
 </template>
+
+<script lang="ts">
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+
+const store = namespace('')
+
+@Component
+export default class Wallet extends Vue {
+  @store.Getter
+  public step!: string
+
+  @store.Mutation
+  public set!: (data: object) => void
+}
+</script>

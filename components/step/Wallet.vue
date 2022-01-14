@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="$store.state.step === 'wallet'"
+      v-if="step === 'wallet'"
       class="container px-8 mx-auto flex flex-wrap flex-col md:flex-row items-center"
     >
       <div
@@ -152,7 +152,7 @@
           min="0"
           step="0.01"
           pattern="[0-9]+([\.][0-9]+)?"
-          :max="parseFloat($store.state.balance).toFixed(2)"
+          :max="parseFloat(walletBalance).toFixed(2)"
           class="rounded-full w-full md:w-2/6 h-16 px-12 mb-3 font-extrabold text-xl py-4 text-primary normal-case focus:outline-none"
         />
         <button

@@ -80,9 +80,7 @@
               :title="$t('stake_now.title')"
               class="mx-auto lg:mx-0 font-bold bg-gradient-to-b from-theme-primary to-theme-secondary text-white rounded-full my-2 w-min whitespace-nowrap py-2 text-center px-6 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out flex flex-row items-center text-sm"
               :to="localePath('how-to-stake-cro')"
-              @click.native="
-                $store.commit('set', { name: 'step', value: 'mnemonic' })
-              "
+              @click.native="set({ name: 'step', value: 'mnemonic' })"
             >
               {{ $t('stake_now.name') }}
             </NuxtLink>
@@ -141,16 +139,21 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import { Carousel, Slide } from 'vue-carousel'
 
-export default {
-  components: {
-    Carousel,
-    Slide,
-  },
+const store = namespace('')
+
+@Component({
+  components: { Carousel, Slide },
   layout: 'main',
-  head() {
+})
+export default class Home extends Vue {
+  @store.Mutation
+  public set!: (data: object) => void
+
+  public head() {
     return {
       title: this.$t('pages.home.title'),
       meta: [
@@ -161,7 +164,7 @@ export default {
         },
       ],
     }
-  },
+  }
 }
 </script>
 
@@ -183,10 +186,12 @@ export default {
     transform: translateY(0px);
   }
 }
+
 .left {
   background-size: cover;
   background: url(assets/images/bg.png) no-repeat center;
 }
+
 .banner-price {
   width: 100px;
   height: 100px;

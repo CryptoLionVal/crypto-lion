@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="$store.state.step === 'first'"
+      v-if="step === 'first'"
       class="container px-8 mx-auto flex flex-wrap flex-col md:flex-row items-center"
     >
       <div
@@ -17,7 +17,7 @@
       <div class="w-full pt-6 pb-32 flex flex-col">
         <button
           class="rounded-full flex flex-row content-center justify-center flex-1 p-6 m-6 bg-white text-gray-800 font-bold shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-          @click="$store.commit('set', { name: 'step', value: 'defi' })"
+          @click="set({ name: 'step', value: 'defi' })"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@
         </button>
         <button
           class="rounded-full flex flex-row content-center justify-center flex-1 p-6 m-6 bg-white text-gray-800 font-bold shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-          @click="$store.commit('set', { name: 'step', value: 'mnemonic' })"
+          @click="set({ name: 'step', value: 'mnemonic' })"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -89,6 +89,9 @@ const store = namespace('')
 
 @Component
 export default class First extends Vue {
+  @store.Getter
+  public step!: string
+
   @store.Mutation
   public set!: (data: object) => void
 

@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <section
-      v-if="$store.state.step === 'defi'"
+      v-if="step === 'defi'"
       :id="$t('pages.how_to_stake_cro.steps_id')"
       class="bg-transparent border-b pb-10 px-4"
     >
@@ -16,11 +16,11 @@
             class="flex flex-wrap md:flex-no-wrap space-y-2 md:space-y-0 md:space-x-5 content-between"
           >
             <card-step
-              v-for="step in $t('pages.how_to_stake_cro.steps.defi.steps')"
-              :key="step.title"
-              :title="step.title"
-              :icon="step.icon"
-              :desc="step.description"
+              v-for="defiStep in $t('pages.how_to_stake_cro.steps.defi.steps')"
+              :key="defiStep.title"
+              :title="defiStep.title"
+              :icon="defiStep.icon"
+              :desc="defiStep.description"
             />
           </div>
         </div>
@@ -34,9 +34,7 @@
         <div class="text-center w-full">
           <a
             class="rounded-full flex flex-row content-center cursor-pointer justify-center w-1/5 p-1 mt-6 mb-32 bg-white text-gray-800 font-bold shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-200 ease-in-out"
-            @click.prevent="
-              $store.commit('set', { name: 'step', value: 'first' })
-            "
+            @click.prevent="set({ name: 'step', value: 'first' })"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -59,3 +57,18 @@
     </section>
   </transition>
 </template>
+
+<script lang="ts">
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+
+const store = namespace('')
+
+@Component
+export default class Wallet extends Vue {
+  @store.Getter
+  public step!: string
+
+  @store.Mutation
+  public set!: (data: object) => void
+}
+</script>
