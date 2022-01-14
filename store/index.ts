@@ -1,43 +1,48 @@
+import { ActionTree, MutationTree } from 'vuex'
+import { AxiosRequestConfig } from 'axios'
 import Big from 'big.js'
 import { Sha256 } from '@cosmjs/crypto'
 
 // TODO: Implement ts for state component calls
 
-export const state = () => ({
-  dialog: {
-    show: false,
-    type: 'warning',
-    message: '',
-  },
-  step: 'first',
-  pin: '',
-  confirmed: null,
-  saved: null,
-  encryptedWallet: null,
-  balance: 0,
-  rewards: 0,
-  staked: 0,
-  lastHash: '',
-})
+export const state = () =>
+  ({
+    dialog: {
+      show: false as boolean,
+      type: 'warning' as string,
+      message: '' as string,
+    } as object,
+    step: 'first' as string,
+    pin: '' as string,
+    confirmed: null as null | void,
+    saved: null as null | void,
+    encryptedWallet: null,
+    balance: 0 as number,
+    rewards: 0 as number,
+    staked: 0 as number,
+    lastHash: '' as string,
+  } as { [key: string]: any })
 
-// TODO: refactor
-export const mutations = {
-  set: (state, { name, value }) => {
+export type RootState = ReturnType<typeof state>
+
+export const mutations: MutationTree<RootState> = {
+  set: (state: RootState, { name, value }): void => {
     state[name] = value
   },
-  dialog: (state, { name, value }) => {
+  dialog: (state: RootState, { name, value }): void => {
     state.dialog[name] = value
   },
-  showDialog(state) {
+  showDialog(state: RootState): void {
     state.dialog.show = true
   },
-  hideDialog(state) {
+  hideDialog(state: RootState): void {
     state.dialog.show = false
   },
 }
 
-export const actions = {
-  async init({ commit, state, dispatch }, mnemonic) {
+export const actions: ActionTree<RootState, RootState> = {
+  async init({ commit, state, dispatch }, mnemonic): Promise<void> {
+    // @ts-ignore
     const encryptedWallet = await this.$chain.init(mnemonic, state.pin)
 
     commit('set', {
@@ -48,12 +53,14 @@ export const actions = {
     await dispatch('fetchBalances')
   },
 
-  async fetchBalances({ commit }) {
+  async fetchBalances({ commit }): Promise<void> {
     const account = await this.$axios.$get(
+      // @ts-ignore
       this.$chain.config('EXPLORER_API') +
         '/accounts/' +
+        // @ts-ignore
         this.$chain.account.address,
-      { crossdomain: true }
+      { crossdomain: true } as AxiosRequestConfig
     )
 
     if (account.result.totalRewards.length) {
@@ -62,7 +69,7 @@ export const actions = {
         .toPrecision(5)
       commit('set', {
         name: 'rewards',
-        value: rewards > 0 ? rewards : 0,
+        value: parseInt(rewards) > 0 ? rewards : 0,
       })
     }
 
@@ -72,7 +79,7 @@ export const actions = {
         .toPrecision(5)
       commit('set', {
         name: 'staked',
-        value: staked > 0 ? staked : 0,
+        value: parseInt(staked) > 0 ? staked : 0,
       })
     }
 
@@ -82,12 +89,13 @@ export const actions = {
         .toPrecision(5)
       commit('set', {
         name: 'balance',
-        value: balance > 0 ? balance : 0,
+        value: parseInt(balance) > 0 ? balance : 0,
       })
     }
   },
 
-  async stake({ commit, state, dispatch }, amount) {
+  async stake({ commit, state, dispatch }, amount: number): Promise<void> {
+    // @ts-ignore
     const response = await this.$chain.delegate(
       amount * 100000000,
       state.encryptedWallet,
@@ -104,7 +112,8 @@ export const actions = {
     await dispatch('fetchBalances')
   },
 
-  async withdraw({ state, dispatch }) {
+  async withdraw({ state, dispatch }): Promise<void> {
+    // @ts-ignore
     const response = await this.$chain.withdraw(
       state.encryptedWallet,
       state.pin
@@ -115,7 +124,7 @@ export const actions = {
     await dispatch('fetchBalances')
   },
 
-  resetStore({ commit }) {
+  resetStore({ commit }): void {
     commit('set', {
       name: 'step',
       value: 'first',
@@ -146,7 +155,7 @@ export const actions = {
     })
   },
 
-  confirmPass({ commit }) {
+  confirmPass({ commit }): Promise<void> {
     return new Promise((resolve) => {
       commit('set', {
         name: 'confirmed',
@@ -155,7 +164,7 @@ export const actions = {
     })
   },
 
-  savePass({ commit }) {
+  savePass({ commit }): Promise<void> {
     return new Promise((resolve) => {
       commit('set', {
         name: 'saved',
@@ -164,14 +173,14 @@ export const actions = {
     })
   },
 
-  savePin({ commit, state }, pin) {
-    const protectedPin = new Sha256(pin)
+  savePin({ commit, state }, pin: string): void {
+    const protectedPin = new Sha256(Uint8Array.from(pin as Iterable<number>))
 
     commit('set', { name: 'pin', value: protectedPin.digest().toString() })
     sessionStorage.setItem('lion_encrypted_pin', state.pin)
   },
 
-  warningDialog({ commit }, message) {
+  warningDialog({ commit }, message: string): void {
     commit('set', {
       name: 'dialog',
       value: {
@@ -182,7 +191,7 @@ export const actions = {
     })
   },
 
-  passwordDialog({ commit }, message) {
+  passwordDialog({ commit }, message: string): void {
     commit('set', {
       name: 'dialog',
       value: {
@@ -193,7 +202,7 @@ export const actions = {
     })
   },
 
-  confirmDialog({ commit }, message) {
+  confirmDialog({ commit }, message: string): void {
     commit('set', {
       name: 'dialog',
       value: {
@@ -204,7 +213,7 @@ export const actions = {
     })
   },
 
-  resetDialog({ commit }) {
+  resetDialog({ commit }): void {
     commit('set', {
       name: 'dialog',
       value: {
