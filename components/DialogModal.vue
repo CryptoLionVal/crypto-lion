@@ -104,6 +104,8 @@
 import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator'
 import { Sha256 } from '@cosmjs/crypto'
 
+const store = namespace('main')
+
 interface Models {
   [key: string]: string
 }
@@ -116,8 +118,6 @@ const models: Models = {
   5: '',
   6: '',
 }
-
-const store = namespace('')
 
 @Component
 export default class DialogModal extends Vue {

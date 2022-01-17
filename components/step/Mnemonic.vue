@@ -81,7 +81,7 @@
 import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator'
 import { SigningStargateClient } from '@cosmjs/stargate'
 
-const store = namespace('')
+const store = namespace('main')
 
 @Component
 export default class Mnemonic extends Vue {

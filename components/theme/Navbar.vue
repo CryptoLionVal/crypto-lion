@@ -75,16 +75,13 @@
 </template>
 
 <script lang="ts">
-import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, namespace, Vue } from 'nuxt-property-decorator'
 
-const store = namespace('')
+const store = namespace('main')
 
 @Component
 export default class Navbar extends Vue {
   @Prop({ default: false }) white!: boolean
-
-  // TODO: Must specify the exact type.
-  $chain: any
 
   floating: boolean = false
   hideMenu: boolean = true
@@ -125,7 +122,8 @@ export default class Navbar extends Vue {
   get buttonText(): string {
     return this.balance === 0
       ? (this.$t('stake_now.name') as string)
-      : this.balance + ' ' + this.$chain.config('PREFIX').toUpperCase()
+      : // @ts-ignore
+        this.balance + ' ' + this.$chain.config('PREFIX').toUpperCase()
   }
 
   navigate(): void {

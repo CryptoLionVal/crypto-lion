@@ -61,7 +61,7 @@
 <script lang="ts">
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
 
-const store = namespace('')
+const store = namespace('main')
 
 @Component
 export default class Wallet extends Vue {

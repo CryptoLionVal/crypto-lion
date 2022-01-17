@@ -141,15 +141,18 @@
 
 <script lang="ts">
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
+// @ts-ignore
 import { Carousel, Slide } from 'vue-carousel'
 
-const store = namespace('')
+const store = namespace('main')
 
 @Component({
   components: { Carousel, Slide },
   layout: 'main',
 })
 export default class Home extends Vue {
+  $chain: any
+
   @store.Mutation
   public set!: (data: object) => void
 
@@ -164,6 +167,10 @@ export default class Home extends Vue {
         },
       ],
     }
+  }
+
+  created() {
+    console.log(this.$chain)
   }
 }
 </script>
