@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <section
-      v-if="step === 'desktop'"
+      v-if="walletStep === 'desktop'"
       :id="$t('pages.how_to_stake_cro.steps_id')"
       class="bg-transparent border-b pb-10 px-4"
     >
@@ -68,7 +68,7 @@ const store = namespace('main')
 @Component
 export default class Wallet extends Vue {
   @store.Getter
-  public step!: string
+  public walletStep!: string
 
   @store.Mutation
   public set!: (data: object) => void

@@ -54,11 +54,8 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class FAQs extends Vue {
-  // TODO: Must specify the exact type.
-  $chain: any = {}
-
   copied: boolean = false
-  address: string = this.$chain.config('VALIDATOR')
+  address: string = (this.$chain as any).config('VALIDATOR')
 
   copy(): void {
     const textArea: HTMLTextAreaElement = document.createElement('textarea')

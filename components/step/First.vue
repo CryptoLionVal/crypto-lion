@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="step === 'first'"
+      v-if="walletStep === 'first'"
       class="container px-8 mx-auto flex flex-wrap flex-col md:flex-row items-center"
     >
       <div
@@ -90,7 +90,7 @@ const store = namespace('main')
 @Component
 export default class First extends Vue {
   @store.Getter
-  public step!: string
+  public walletStep!: string
 
   @store.Mutation
   public set!: (data: object) => void

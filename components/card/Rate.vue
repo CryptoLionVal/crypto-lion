@@ -18,7 +18,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { AxiosRequestConfig } from 'axios'
 import Big from 'big.js'
-import CHAINS from '~/chains.config'
+import CHAINS from '@/networks.config'
 
 const CHAIN: string = process.env.CHAIN as string
 

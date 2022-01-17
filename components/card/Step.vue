@@ -12,7 +12,7 @@
         class="w-2/3 bg-gray-200 h-24 flex flex-col items-center justify-center px-1 rounded-r-lg body-step"
       >
         <h2 class="font-bold text-sm text-primary">{{ title }}</h2>
-        <p class="text-xs text-gray-600" v-html="desc"></p>
+        <p class="text-xs text-gray-600" v-html="description"></p>
       </div>
     </div>
   </div>

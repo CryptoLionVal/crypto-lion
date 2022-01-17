@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="step === 'wallet'"
+      v-if="walletStep === 'wallet'"
       class="container px-8 mx-auto flex flex-wrap flex-col md:flex-row items-center"
     >
       <div
@@ -251,7 +251,7 @@ export default class Wallet extends Vue {
   public walletRewards!: number
 
   @store.Getter
-  public step!: string
+  public walletStep!: string
 
   @store.Mutation
   public set!: (data: object) => void
@@ -390,7 +390,11 @@ export default class Wallet extends Vue {
 
   mounted(): void {
     setInterval(async () => {
-      if (!this.loading && !this.reloadingBalance && this.step === 'wallet') {
+      if (
+        !this.loading &&
+        !this.reloadingBalance &&
+        this.walletStep === 'wallet'
+      ) {
         this.reloadingBalance = true
         await this.fetchBalances()
         this.reloadingBalance = false

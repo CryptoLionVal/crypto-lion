@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="step === 'mnemonic'"
+      v-if="walletStep === 'mnemonic'"
       class="container px-8 mx-auto flex flex-wrap flex-col md:flex-row items-center"
     >
       <div
@@ -95,7 +95,7 @@ export default class Mnemonic extends Vue {
   public dialogPin!: string
 
   @store.Getter
-  public step!: string
+  public walletStep!: string
 
   @store.Getter
   public encryptedWallet!: string

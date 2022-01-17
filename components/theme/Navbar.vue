@@ -51,9 +51,7 @@
               "
               class="inline-block py-2 px-4 no-underline"
               :title="link.title"
-              @click.native="
-                $store.commit('set', { name: 'step', value: 'first' })
-              "
+              @click.native="set({ name: 'step', value: 'first' })"
               >{{ link.name }}
             </NuxtLink>
           </li>
@@ -87,7 +85,7 @@ export default class Navbar extends Vue {
   hideMenu: boolean = true
 
   @store.Getter
-  public balance!: number
+  public walletBalance!: number
 
   @store.Mutation
   public set!: (data: object) => void
@@ -120,14 +118,14 @@ export default class Navbar extends Vue {
   }
 
   get buttonText(): string {
-    return this.balance === 0
+    return this.walletBalance === 0
       ? (this.$t('stake_now.name') as string)
       : // @ts-ignore
-        this.balance + ' ' + this.$chain.config('PREFIX').toUpperCase()
+        this.walletBalance + ' ' + this.$chain.config('PREFIX').toUpperCase()
   }
 
   navigate(): void {
-    if (this.balance > 0) {
+    if (this.walletBalance > 0) {
       this.set({ name: 'step', value: 'wallet' })
 
       return

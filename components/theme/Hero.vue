@@ -17,7 +17,7 @@
           <p class="leading-normal text-2xl mb-8" v-html="$t('hero.desc')"></p>
           <NuxtLink
             tag="button"
-            :hidden="['wallet', 'final'].includes(step)"
+            :hidden="['wallet', 'final'].includes(walletStep)"
             prefetch
             :title="$t('stake_now.title')"
             class="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
@@ -44,7 +44,7 @@ const store = namespace('main')
 @Component
 export default class Wallet extends Vue {
   @store.Getter
-  public step!: string
+  public walletStep!: string
 
   @store.Mutation
   public set!: (data: object) => void

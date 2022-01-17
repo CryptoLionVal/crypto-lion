@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="step === 'final'"
+      v-if="walletStep === 'final'"
       class="container px-8 flex flex-col w-full flex-wrap justify-start items-start text-left"
     >
       <h1 class="my-10 text-5xl w-full font-bold text-green-700 leading-tight">
@@ -102,7 +102,7 @@ const store = namespace('main')
 @Component
 export default class Wallet extends Vue {
   @store.Getter
-  public step!: string
+  public walletStep!: string
 
   @store.Mutation
   public set!: (data: object) => void
