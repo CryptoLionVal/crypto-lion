@@ -43,13 +43,7 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '@/plugins/chain.ts',
-    {
-      src: '@/plugins/gtag.js',
-      mode: 'client',
-    },
-  ],
+  plugins: ['~/plugins/chain.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

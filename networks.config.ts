@@ -1,17 +1,6 @@
-type Chain = {
-  [key: string]: {
-    RPC: string
-    LCD: string
-    T_VALIDATOR: string
-    VALIDATOR: string
-    HD_PATH: string
-    PREFIX: string
-    EXPLORER: string
-    EXPLORER_API: string
-  }
-}
+import { Network } from '@/interfaces/Network'
 
-const CHAINS: Chain = {
+const CHAINS: Network = {
   TESTNET: {
     RPC: 'https://testnet-croeseid-4.crypto.org:26657',
     LCD: 'https://testnet-croeseid-4.crypto.org:1317',

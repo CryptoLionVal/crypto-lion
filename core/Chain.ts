@@ -2,9 +2,13 @@ import { Secp256k1HdWallet } from '@cosmjs/launchpad'
 import { stringToPath } from '@cosmjs/crypto'
 import { GasPrice, SigningStargateClient } from '@cosmjs/stargate'
 import { coin } from '@cosmjs/proto-signing'
-import NetworksConfig from '~/chains.config'
+import NetworksConfig from '@/chains.config'
+import { Chain as ChainType } from '@/interfaces/Chain'
 
 export default class Chain {
+  _chain: string
+  _networks: Network
+
   constructor(chain, networks = NetworksConfig) {
     this._chain = chain
     this._networks = networks
