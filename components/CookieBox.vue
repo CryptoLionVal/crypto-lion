@@ -52,7 +52,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { bootstrap } from 'vue-gtag'
 
 @Component
 export default class CookieBox extends Vue {
@@ -68,11 +67,10 @@ export default class CookieBox extends Vue {
 
   accept() {
     if (process.browser && !!localStorage) {
-      bootstrap().then(() => {
-        this.isOpen = false
+      // TODO:implement GA manual init
+      this.isOpen = false
 
-        localStorage.setItem('GDPR:accepted', 'true')
-      })
+      localStorage.setItem('GDPR:accepted', 'true')
     }
   }
 

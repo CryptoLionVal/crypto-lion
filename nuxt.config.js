@@ -54,6 +54,8 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    // https://google-analytics.nuxtjs.org
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -107,5 +109,10 @@ export default {
   sitemap: {
     hostname: 'https://cryptolion.finance',
     gzip: true,
+  },
+
+  googleAnalytics: {
+    id: 'G-F9Y4W7BYBQ',
+    debug: true,
   },
 }

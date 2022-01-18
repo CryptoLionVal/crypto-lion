@@ -30,7 +30,6 @@
     "vue": "^2.6.14",
     "vue-apexcharts": "^1.6.2",
     "vue-carousel": "^0.18.0",
-    "vue-gtag": "^1.16.1",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^4.46.0"
@@ -41,6 +40,7 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^8.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "@types/big.js": "^6.1.2",
     "eslint": "^8.4.1",
