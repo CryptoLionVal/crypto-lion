@@ -51,17 +51,30 @@
       </h3>
       <NuxtLink
         tag="button"
-        :hidden="['wallet', 'final'].includes($store.state.step)"
+        :hidden="['wallet', 'final'].includes(walletStep)"
         prefetch
         :title="$t('stake_now.title')"
         class="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-8 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
         :to="localePath('how-to-stake-cro')"
-        @click.native="
-          $store.commit('set', { name: 'step', value: 'mnemonic' })
-        "
+        @click.native="set({ name: 'step', value: 'mnemonic' })"
       >
         {{ $t('stake_now.name') }}!
       </NuxtLink>
     </section>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+
+const store = namespace('main')
+
+@Component
+export default class Action extends Vue {
+  @store.Getter
+  public walletStep!: string
+
+  @store.Mutation
+  public set!: (data: object) => void
+}
+</script>

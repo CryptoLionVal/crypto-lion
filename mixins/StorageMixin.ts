@@ -4,27 +4,30 @@ const store = namespace('main')
 
 @Component
 class StorageMixin extends Vue {
+  @store.Getter
+  public walletEncryptedWallet!: string
+
   @store.Mutation
   public set!: (data: object) => void
 
   @store.Action
-  public init!: (data: void) => void
+  public init!: (data: string) => Promise<void>
 
   async mounted(): Promise<void> {
     if (
       sessionStorage.getItem('lion_encrypted_wallet') &&
       sessionStorage.getItem('lion_encrypted_pin') &&
       sessionStorage.getItem('lion_account_address') &&
-      this.$store.state.encryptedWallet === null
+      this.walletEncryptedWallet === null
     ) {
       this.set({
         name: 'pin',
         value: sessionStorage.getItem('lion_encrypted_pin'),
       })
 
-      await this.$store.dispatch('init', '')
+      await this.init('')
 
-      this.$store.commit('set', { name: 'step', value: 'wallet' })
+      this.set({ name: 'step', value: 'wallet' })
     }
   }
 }

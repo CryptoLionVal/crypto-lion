@@ -60,10 +60,10 @@
       </div>
 
       <a
-        :href="$chain.config('EXPLORER') + '/tx/' + $store.state.lastHash"
+        :href="$chain.config('EXPLORER') + '/tx/' + walletLastHash"
         target="_blank"
         class="text-gray-500 text-xxs mx-4 md:mx-0 font-bold md:m-8 break-all underline"
-        >TX: {{ $store.state.lastHash }}</a
+        >TX: {{ walletLastHash }}</a
       >
 
       <div class="flex w-full justify-start">
@@ -103,6 +103,9 @@ const store = namespace('main')
 export default class Wallet extends Vue {
   @store.Getter
   public walletStep!: string
+
+  @store.Getter
+  public walletLastHash!: string
 
   @store.Mutation
   public set!: (data: object) => void

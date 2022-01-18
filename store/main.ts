@@ -64,7 +64,13 @@ export default class Main extends VuexModule {
     return this.step
   }
 
-  // get encryptedWallet():null | string { return this.encryptedWallet }
+  get walletLastHash(): string {
+    return this.lastHash
+  }
+
+  get walletEncryptedWallet(): null | string {
+    return this.encryptedWallet
+  }
 
   get walletBalance(): number {
     return this.balance
