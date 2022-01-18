@@ -12,14 +12,21 @@
   </section>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: this.$t('pages.privacy.title'),
-    }
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({
+  nuxtI18n: {
+    paths: {
+      en: '/privacy-policy',
+      tr: '/gizlilik-politikasi',
+    },
   },
-  head() {
+})
+export default class PrivacyPolicy extends Vue {
+  title: string = this.$t('pages.privacy.title') as string
+
+  public head() {
     return {
       title: this.title,
       meta: [
@@ -30,12 +37,6 @@ export default {
         },
       ],
     }
-  },
-  nuxtI18n: {
-    paths: {
-      en: '/privacy-policy',
-      tr: '/gizlilik-politikasi',
-    },
-  },
+  }
 }
 </script>

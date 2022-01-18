@@ -10,9 +10,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  head() {
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class Index extends Vue {
+  public head() {
     return {
       title: this.$t('pages.home.title'),
       meta: [
@@ -23,6 +26,6 @@ export default {
         },
       ],
     }
-  },
+  }
 }
 </script>

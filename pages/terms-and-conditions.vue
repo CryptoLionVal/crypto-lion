@@ -12,14 +12,21 @@
   </section>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: this.$t('pages.terms.title'),
-    }
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({
+  nuxtI18n: {
+    paths: {
+      en: '/terms-and-conditions',
+      tr: '/kurallar-ve-kosullar',
+    },
   },
-  head() {
+})
+export default class TermsAndConditions extends Vue {
+  title: string = this.$t('pages.terms.title') as string
+
+  public head() {
     return {
       title: this.title,
       meta: [
@@ -30,12 +37,6 @@ export default {
         },
       ],
     }
-  },
-  nuxtI18n: {
-    paths: {
-      en: '/terms-and-conditions',
-      tr: '/kurallar-ve-kosullar',
-    },
-  },
+  }
 }
 </script>

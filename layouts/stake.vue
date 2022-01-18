@@ -14,12 +14,13 @@
   </div>
 </template>
 
-<script>
-import storage from '@/mixins/storage'
+<script lang="ts">
+import { Component, mixins } from 'nuxt-property-decorator'
+import StorageMixin from '~/mixins/StorageMixin'
 
-export default {
-  mixins: [storage],
-  head() {
+@Component
+export default class Stake extends mixins(StorageMixin) {
+  public head() {
     return {
       titleTemplate: this.$t('title_template'),
       meta: [
@@ -30,6 +31,6 @@ export default {
         },
       ],
     }
-  },
+  }
 }
 </script>

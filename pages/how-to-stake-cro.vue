@@ -20,15 +20,22 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({
   layout: 'stake',
-  data() {
-    return {
-      title: this.$t('pages.how_to_stake_cro.title'),
-    }
+  nuxtI18n: {
+    paths: {
+      en: '/how-to-stake-cro',
+      tr: '/cro-nasil-stake-edilir',
+    },
   },
-  head() {
+})
+export default class HowToStakeCro extends Vue {
+  title: string = this.$t('pages.how_to_stake_cro.title') as string
+
+  public head() {
     return {
       title: this.title,
       meta: [
@@ -39,12 +46,6 @@ export default {
         },
       ],
     }
-  },
-  nuxtI18n: {
-    paths: {
-      en: '/how-to-stake-cro',
-      tr: '/cro-nasil-stake-edilir',
-    },
-  },
+  }
 }
 </script>
