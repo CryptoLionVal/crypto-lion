@@ -48,6 +48,10 @@ export default class Main extends VuexModule {
     return this.dialog.show
   }
 
+  get dialogMessage(): string {
+    return this.dialog.message
+  }
+
   get dialogSaved(): null | boolean | Function {
     return this.saved
   }

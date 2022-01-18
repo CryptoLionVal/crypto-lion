@@ -26,14 +26,14 @@
             v-if="dialogType !== 'warning'"
             class="gradient w-full text-xl py-2 leading-6 px-4 text-gray-200"
           >
-            {{ $store.state.dialog.message }}
+            {{ dialogMessage }}
 
             <button class="float-right font-black text-red-600" @click="hide">
               x
             </button>
           </h2>
           <h2 v-else class="w-full text-xl pt-5 leading-6 px-4 text-gray-800">
-            {{ $store.state.dialog.message }}
+            {{ dialogMessage }}
           </h2>
           <div class="bg-white p-2 md:p-5 w-full">
             <div class="flex flex-col pt-4">
@@ -86,7 +86,7 @@
               <a
                 v-else
                 class="rounded-full self-end flex flex-row content-center cursor-pointer justify-center w-1/5 p-1 bg-transparent text-red-600 font-bold transform transition hover:scale-105 duration-200 ease-in-out"
-                @click.prevent="$store.commit('hideDialog')"
+                @click.prevent="hideDialog"
               >
                 <span class="text-xl">
                   {{ $t('dialog.button.close') }}
@@ -143,7 +143,7 @@ export default class DialogModal extends Vue {
   public dialogSaved!: boolean
 
   @store.Getter
-  public dialogConfirmed!: boolean
+  public dialogMessage!: string
 
   @store.Mutation
   public hideDialog!: (data: void) => void
