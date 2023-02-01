@@ -75,15 +75,14 @@
             </li>
           </ul>
           <div class="mt-3 grid grid-cols-4">
-            <NuxtLink
-              prefetch
+            <a
               :title="$t('stake_now.title')"
               class="mx-auto lg:mx-0 font-bold bg-gradient-to-b from-theme-primary to-theme-secondary text-white rounded-full my-2 w-min whitespace-nowrap py-2 text-center px-6 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out flex flex-row items-center text-sm"
-              :to="localePath('how-to-stake-cro')"
-              @click.native="set({ name: 'step', value: 'mnemonic' })"
+              href="https://wallet.keplr.app/chains/crypto-org?modal=validator&chain=crypto-org-chain-mainnet-1&validator_address=crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495"
+              target="_blank"
             >
               {{ $t('stake_now.name') }}
-            </NuxtLink>
+            </a>
             <div class="ml-2">
               <NuxtLink
                 class="mx-auto lg:mx-0 font-bold text-theme-secondary rounded-full my-2 w-min whitespace-nowrap py-2 text-center px-6 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out flex flex-row items-center text-sm"

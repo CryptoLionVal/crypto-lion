@@ -97,7 +97,7 @@ export default {
           desc: `Please choose a comfortable way to stake. It is easy to stake your CROs here in the Crypto Lion Website. Feel free to check source code, we are open source.`,
           buttons: {
             defi: `Install Mobile DeFi Wallet App`,
-            mnemonic: `Access Wallet with Mnemonic`,
+            mnemonic: `Access Wallet via Keplr`,
             desktop: `Download CDC Desktop Wallet`,
           },
         },

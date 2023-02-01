@@ -15,17 +15,15 @@
             {{ $t('hero.title') }}
           </h1>
           <p class="leading-normal text-2xl mb-8" v-html="$t('hero.desc')"></p>
-          <NuxtLink
-            tag="button"
+          <a
             :hidden="['wallet', 'final'].includes(walletStep)"
-            prefetch
             :title="$t('stake_now.title')"
             class="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-            :to="localePath('how-to-stake-cro')"
-            @click.native="set({ name: 'step', value: 'mnemonic' })"
+            href="https://wallet.keplr.app/chains/crypto-org?modal=validator&chain=crypto-org-chain-mainnet-1&validator_address=crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495"
+            target="_blank"
           >
             {{ $t('stake_now.name') }}!
-          </NuxtLink>
+          </a>
         </div>
         <div class="w-full md:w-3/5 p-6 text-center">
           <lazy-chart />

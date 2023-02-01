@@ -49,17 +49,15 @@
       <h3 class="my-8 text-3xl leading-tight">
         {{ $t('sections.action.subtitle') }}
       </h3>
-      <NuxtLink
-        tag="button"
+      <a
         :hidden="['wallet', 'final'].includes(walletStep)"
-        prefetch
         :title="$t('stake_now.title')"
         class="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-8 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-        :to="localePath('how-to-stake-cro')"
-        @click.native="set({ name: 'step', value: 'mnemonic' })"
+        href="https://wallet.keplr.app/chains/crypto-org?modal=validator&chain=crypto-org-chain-mainnet-1&validator_address=crocncl17xjefmgzd9k2k065289nktklj706zhk4nr7495"
+        target="_blank"
       >
         {{ $t('stake_now.name') }}!
-      </NuxtLink>
+      </a>
     </section>
   </div>
 </template>

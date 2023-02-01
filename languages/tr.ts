@@ -104,7 +104,7 @@ export default {
             `yöntem olarak cüzdanınızı buradan gizli kelimeleriniz ile açabilirsiniz.`,
           buttons: {
             defi: 'DeFi Mobil Uygulamasını kurarak',
-            mnemonic: 'Cüzdanını Mnemonic Kullanarak Aç',
+            mnemonic: 'Cüzdanını Keplr Kullanarak Aç',
             desktop: 'CDC Masaüstü Cüzdanını Kur',
           },
         },

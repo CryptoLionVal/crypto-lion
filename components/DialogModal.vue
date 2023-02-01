@@ -160,6 +160,8 @@ export default class DialogModal extends Vue {
   @store.Action
   public resetDialog!: (data: void) => void
 
+  dialogConfirmed: any
+
   get encryptedPin(): string {
     return new Sha256(Uint8Array.from(this.pin as Iterable<number>))
       .digest()
