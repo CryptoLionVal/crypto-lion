@@ -39,7 +39,7 @@ export default function Home() {
                             />
                             <h1 className={styles.logoText}>Crypto Lion</h1>
                         </div>
-                        <h3 className={styles.slugText}>"Reliable staking services"</h3>
+                        <h3 className={styles.slugText}>&ldquo;Reliable staking services&rdquo;</h3>
                     </div>
 
                     <div className={styles.footer}>
