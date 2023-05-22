@@ -19,10 +19,17 @@ import marsLogo from '../src/assets/chains/c-lion-chain-mars-protocol-min.svg'
 import mediblocLogo from '../src/assets/chains/c-lion-chain-medibloc-min.svg'
 import shentuLogo from '../src/assets/chains/c-lion-chain-shentu-min.svg'
 import xplaLogo from '../src/assets/chains/c-lion-chain-xpla-min.svg'
+import Head from "next/head";
 
 export default function Home() {
     return (
         <>
+            <Head>
+                <title>Crypto Lion Validator</title>
+                <meta name="description" content="" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js" />
             <Script src="/planet.js" />
             <Script src="https://kit.fontawesome.com/f05c8837f2.js" />
