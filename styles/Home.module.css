@@ -11,33 +11,51 @@
 
 .content {
     height: 80vh;
-    width: 100vw;
+    width: 80vw;
     display: grid;
+    grid-gap: 60px;
     grid-template-columns: 1fr;
 }
 
-.logo {
-    display: flex;
+.content h3 {
+    font-size: xxx-large;
 }
 
-.logoText {
-    font-family: 'Poppins', sans-serif;
-    font-size: 100px;
-    line-height: 100px;
-    font-weight: 500;
-    color: white;
+@media (max-width: 720px) {
+    .content h3 {
+        font-size: xx-large;
+    }
+
+    .slugText {
+        margin-left: 15px;
+    }
 }
 
 .slugText {
     color: white;
     font-size: 50px;
     font-weight: lighter;
-    margin-top: -150px;
+    margin-top: -100px;
     margin-left: 50px;
 }
 
 .footer {
     height: 20vh;
+}
+
+.footer p {
+    text-align: center;
+}
+
+.footer p a {
+    color: white;
+    text-decoration: none;
+    font-size: small;
+    margin: 0 10px;
+}
+
+.footer p a img {
+    vertical-align: text-bottom;
 }
 
 .social {
@@ -127,26 +145,90 @@
 }
 
 .social li:nth-child(1):hover span {
-    background: #1DA1F2 !important;
-    box-shadow: 0px 5px 12px #1da0f27a;
+    background: #516ffa !important;
+    box-shadow: 0px 5px 12px #516ffa7a;
 }
 
 .social li:nth-child(2):hover span {
-    background: #2C3456 !important;
-    box-shadow: 0px 5px 12px #2c3456c4;
+    background: #00DC80 !important;
+    box-shadow: 0px 5px 12px #00DC80c4;
 }
 
 .social li:nth-child(3):hover span {
-    background: #8a3ab9 !important;
-    box-shadow: 0px 5px 12px #8a3ab9b6;
+    background: #fe4350 !important;
+    box-shadow: 0px 5px 12px #fe4350b6;
 }
 
 .social li:nth-child(4):hover span {
-    background: #0e76a8 !important;
-    box-shadow: 0px 5px 12px #0e77a8b9;
+    background: #ebaf76 !important;
+    box-shadow: 0px 5px 12px #ebaf76b9;
 }
 
 .social li:nth-child(5):hover span {
-    background: #c9510c !important;
-    box-shadow: 0px 5px 12px #c9510c5d;
+    background: #1199fa !important;
+    box-shadow: 0px 5px 12px #1199fa5d;
+}
+
+.social li:nth-child(6):hover span {
+    background: #43ad6b !important;
+    box-shadow: 0px 5px 12px #43ad6bc4;
+}
+
+.social li:nth-child(7):hover span {
+    background: #ed6c53 !important;
+    box-shadow: 0px 5px 12px #ed6c537a;
+}
+
+.social li:nth-child(8):hover span {
+    background: #86ccba !important;
+    box-shadow: 0px 5px 12px #86ccbab6;
+}
+
+.social li:nth-child(9):hover span {
+    background: #3552F6 !important;
+    box-shadow: 0px 5px 12px #3552F6b9;
+}
+
+.social li:nth-child(10):hover span {
+    background: #007bb5 !important;
+    box-shadow: 0px 5px 12px #007bb55d;
+}
+
+.social li:nth-child(11):hover span {
+    background: #0492dc !important;
+    box-shadow: 0px 5px 12px #0492dc7a;
+}
+
+.social li:nth-child(12):hover span {
+    background: #3756fc !important;
+    box-shadow: 0px 5px 12px #3756fcc4;
+}
+
+.social li:nth-child(13):hover span {
+    background: #3e68f9 !important;
+    box-shadow: 0px 5px 12px #3e68f9b6;
+}
+
+.social li:nth-child(14):hover span {
+    background: #DA3A14 !important;
+    box-shadow: 0px 5px 12px #DA3A14b9;
+}
+
+.social li:nth-child(15):hover span {
+    background: #4f79ec !important;
+    box-shadow: 0px 5px 12px #4f79ec5d;
+}
+
+.social li:nth-child(16):hover span {
+    background: #e1aa4c !important;
+    box-shadow: 0px 5px 12px #e1aa4c5d;
+}
+
+.social li:nth-child(17):hover span {
+    background: #00b1ff !important;
+    box-shadow: 0px 5px 12px #00b1ff5d;
+}
+
+.social-mod {
+    padding-top: 25px !important;
 }
