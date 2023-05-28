@@ -10,8 +10,8 @@
 }
 
 .content {
-    height: 80vh;
-    width: 80vw;
+    height: 75vh;
+    width: 100vw;
     display: grid;
     grid-gap: 60px;
     grid-template-columns: 1fr;
@@ -40,11 +40,16 @@
 }
 
 .footer {
-    height: 20vh;
+    height: 24vh;
+    display: grid;
+    grid-gap: 1vh;
+    padding-bottom: 5vh;
 }
 
 .footer p {
+    margin-top: 0;
     text-align: center;
+    width: 100vw;
 }
 
 .footer p a {
@@ -227,8 +232,4 @@
 .social li:nth-child(17):hover span {
     background: #00b1ff !important;
     box-shadow: 0px 5px 12px #00b1ff5d;
-}
-
-.social-mod {
-    padding-top: 25px !important;
 }

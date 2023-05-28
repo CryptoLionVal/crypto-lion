@@ -38,7 +38,8 @@ export default function Home() {
             strings: ['"Reliable roaring services"', '"Reliable staking services"'],
             startDelay: 300,
             typeSpeed: 60,
-            smartBackspace: true
+            smartBackspace: true,
+            showCursor: false
         });
 
         // Destropying
