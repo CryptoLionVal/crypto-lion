@@ -167,10 +167,6 @@ export default class Home extends Vue {
       ],
     }
   }
-
-  created() {
-    console.log(this.$chain)
-  }
 }
 </script>
 

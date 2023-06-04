@@ -13,7 +13,9 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-@Component
+@Component({
+  middleware: 'future'
+})
 export default class Index extends Vue {
   public head() {
     return {
