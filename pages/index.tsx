@@ -77,6 +77,7 @@ export default function Home() {
                         <div className="row-span-2">
                             <Swiper
                                 width={60}
+                                loop
                                 style={{paddingTop: '10vh'}}
                                 wrapperTag="ul"
                                 wrapperClass="social"
