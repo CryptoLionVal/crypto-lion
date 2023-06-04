@@ -1,3 +1,18 @@
+/*!
+ * ApexCharts v3.32.1
+ * (c) 2018-2021 ApexCharts
+ * Released under the MIT License.
+ */
+
+/*! svg.draggable.js - v2.2.2 - 2019-01-08
+  * https://github.com/svgdotjs/svg.draggable.js
+  * Copyright (c) 2019 Wout Fierens; Licensed MIT */
+
+/*! svg.filter.js - v2.0.2 - 2016-02-24
+  * https://github.com/wout/svg.filter.js
+  * Copyright (c) 2016 Wout Fierens; Licensed MIT */
+
+
 /*
  * [js-sha512]{@link https://github.com/emn178/js-sha512}
  *
@@ -62,28 +77,6 @@ PERFORMANCE OF THIS SOFTWARE.
 
 
 /*!
- * ApexCharts v3.32.1
- * (c) 2018-2021 ApexCharts
- * Released under the MIT License.
- */
-
-/*! svg.draggable.js - v2.2.2 - 2019-01-08
-  * https://github.com/svgdotjs/svg.draggable.js
-  * Copyright (c) 2019 Wout Fierens; Licensed MIT */
-
-/*! svg.filter.js - v2.0.2 - 2016-02-24
-  * https://github.com/wout/svg.filter.js
-  * Copyright (c) 2016 Wout Fierens; Licensed MIT */
-
-
-/*!
- * vue-carousel v0.18.0-alpha
- * (c) 2019 todd.beauchamp@ssense.com
- * https://github.com/ssense/vue-carousel#readme
- */
-
-
-/*!
   * vue-router v3.5.3
   * (c) 2021 Evan You
   * @license MIT
@@ -106,4 +99,11 @@ PERFORMANCE OF THIS SOFTWARE.
  * vuex v3.6.2
  * (c) 2021 Evan You
  * @license MIT
+ */
+
+
+/*!
+ * vue-carousel v0.18.0-alpha
+ * (c) 2019 todd.beauchamp@ssense.com
+ * https://github.com/ssense/vue-carousel#readme
  */
