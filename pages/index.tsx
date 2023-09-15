@@ -78,7 +78,7 @@ export default function Home() {
                             <Swiper
                                 width={60}
                                 loop
-                                style={{paddingTop: '10vh'}}
+                                style={{paddingTop: '10vh', paddingBottom: '5vh', }}
                                 wrapperTag="ul"
                                 wrapperClass="social"
                                 className={styles.social}>
